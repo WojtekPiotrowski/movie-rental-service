@@ -21,4 +21,17 @@ public class CopyMovie {
     private Movie movie;
 
     private boolean available;
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    @Override
+    public int hashCode() {
+        return movie.getTitle().hashCode();
+    }
 }

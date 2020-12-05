@@ -1,8 +1,10 @@
 package pl.sda.MovieRental.model;
 
+import com.sun.xml.bind.v2.TODO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.sda.MovieRental.exception.NoMovieInStockException;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -27,4 +29,9 @@ public class Movie {
 
     @OneToMany (mappedBy = "movie")
     private List<CopyMovie> copies;
+
+    public CopyMovie getCopy() throws NoMovieInStockException {
+        //TODO method to get an available copy of given movie, if there is no copy, throw exception
+        return null;
+    }
 }
