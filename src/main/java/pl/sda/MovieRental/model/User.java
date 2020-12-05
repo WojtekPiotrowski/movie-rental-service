@@ -4,10 +4,8 @@ package pl.sda.MovieRental.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,4 +21,10 @@ public class User {
     private String password;
 
     private String email;
+
+    @OneToMany (mappedBy = "user")
+    private List<Order> orders;
+
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Address address;
 }
