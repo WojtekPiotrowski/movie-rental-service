@@ -4,12 +4,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 @Data
-@NoArgsConstructor
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,7 +18,11 @@ public class Cart {
     @JoinColumn(name = "copyMovie_id")
     private List<CopyMovie> copyMovies;
 
+    public Cart() {
+        this.copyMovies = new ArrayList<CopyMovie>();
+    }
 
-
-
+    public void addMovie(CopyMovie copyMovie) {
+        this.copyMovies.add(copyMovie);
+    }
 }

@@ -18,9 +18,6 @@ public class Order {
     private Delivery delivery;
 
     @OneToOne
-    @JoinTable(name = "order_cart",
-    joinColumns = @JoinColumn(name = "order_id"),
-    inverseJoinColumns = @JoinColumn(name = "cart_id"))
     private Cart cart;
 
     @ManyToOne

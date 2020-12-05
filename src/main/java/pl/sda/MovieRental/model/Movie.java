@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,7 +23,8 @@ public class Movie {
     private String description;
     private int rateNumbers; //do sprawdzenia*//
     private double averageRate;
-    private int totalCopyNumbers;  //do sprawdzenia*//
-    private int availableCopyNumbers; //do sprawdzenia*//
     private BigDecimal price;
+
+    @OneToMany (mappedBy = "movie")
+    private List<CopyMovie> copies;
 }
