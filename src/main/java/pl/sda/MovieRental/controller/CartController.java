@@ -20,9 +20,9 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    @GetMapping("/carts")
-    ResponseEntity<List<Cart>> readAllTasks(){
-        log.warn("Exposing all the tasks!");
+    /*@GetMapping("/carts")
+    ResponseEntity<List<Cart>> readAllCarts(){
+        log.warn("Exposing all the carts!");
         return ResponseEntity.ok(cartService.findAll());
     }
 
@@ -49,7 +49,7 @@ public class CartController {
         return ResponseEntity.created(URI.create("/"+resultCart.getId())).build();
     }
 
-   /* @PutMapping(path = "/carts/{id}/addMovie")
+    @PutMapping(path = "/carts/{id}/addMovie")
     ResponseEntity<?> addMovieToCart (@RequestBody CopyMovie copyMovie, @PathVariable("id") Long id){
         log.info("Adding movie copy to given cart");
 
@@ -57,10 +57,11 @@ public class CartController {
             return ResponseEntity.notFound().build();
         }
         Cart cart = cartService.findCartById(id).orElse(null);
+        cart.setId(id);
         cart.addMovie(copyMovie);
         cartService.save(cart);
         return ResponseEntity.noContent().build();
     }*/
-    //TO-DO/ni działa
+
 
 }

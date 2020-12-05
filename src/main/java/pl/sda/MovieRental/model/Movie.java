@@ -21,8 +21,8 @@ public class Movie {
     private LocalDate releaseDate;
     private Genre genre;
     private String description;
-    private int rateNumbers; //do sprawdzenia*//
-    private double averageRate;
+    private int numberOfRatings;
+    private double averageRating;
     private BigDecimal price;
 
     @OneToMany (mappedBy = "movie")

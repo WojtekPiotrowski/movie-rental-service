@@ -14,7 +14,7 @@ public class CopyMovie {
 
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long copyId;
+    private Long id;
 
    @ManyToOne
    @JoinColumn(name = "movie_id")

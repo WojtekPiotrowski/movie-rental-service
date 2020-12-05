@@ -1,17 +1,21 @@
 package pl.sda.MovieRental.service;
 
-import pl.sda.MovieRental.model.Cart;
+import pl.sda.MovieRental.exception.NoMovieInStockException;
+import pl.sda.MovieRental.model.CopyMovie;
+import pl.sda.MovieRental.model.Movie;
 
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 public interface CartService {
 
-    Optional<Cart> findCartById (Long id);
+    void addMovie(Movie movie);
 
-    Cart save(Cart cart);
+    void removeMovie(Movie movie);
 
-    List<Cart> findAll();
+    List<CopyMovie> getMoviesInCart();
 
-    boolean existsById(Long id);
+    void checkout() throws NoMovieInStockException;
+
+    BigDecimal getTotal();
 }
