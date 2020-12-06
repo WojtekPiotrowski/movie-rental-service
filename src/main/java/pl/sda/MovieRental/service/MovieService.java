@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface MovieService {
 
-    void save(Movie movie);
 
-    //void addMovie(Movie movie); //ok
+
+    Movie addMovie(Movie movie); //ok
 
     Optional<Movie> getById(Long id);  //ok
 
