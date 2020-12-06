@@ -2,6 +2,7 @@ package pl.sda.MovieRental.controller;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.boot.model.source.internal.hbm.ModelBinder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -67,15 +68,16 @@ public class MovieController {
     }
 
 
- /*   @PutMapping("/movie-list/{id}")
-    public ResponseEntity<?> updateMovie(@PathVariable("id") Long id){
-        log.info("movie " + id + "has been updated");
+    @PutMapping("/movie-list")
+    public ResponseEntity<?> updateMovie(@RequestBody final Movie movie){
+
+       movieService.update(movie);
+        log.info("movie " + movie + "has been updated");
 
         return ResponseEntity
                 .noContent()
-                .build(movieService.update(););
+                .build();
     }
-*/
 
 
 }
