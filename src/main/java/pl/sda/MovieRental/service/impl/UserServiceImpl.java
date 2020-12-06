@@ -1,7 +1,6 @@
 package pl.sda.MovieRental.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.sda.MovieRental.model.User;
 import pl.sda.MovieRental.repository.UserRepository;
@@ -16,11 +15,9 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserServiceImpl(final UserRepository userRepository,final  BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(final UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -30,15 +27,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword((user.getPassword()));
         userRepository.save(user);
     }
 
 
     @Override
     public void deleteById(Long id) {
-        Optional<User> user = userRepository.findById(id);
         log.info("Deleting user with all inner objects");
-        userRepository.delete(user);
+        userRepository.deleteById(id);
     }
 }
