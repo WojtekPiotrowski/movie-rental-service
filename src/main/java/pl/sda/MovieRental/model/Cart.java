@@ -15,7 +15,5 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany
-    @JoinColumn(name = "copyMovie_id")
-    private List<CopyMovie> copyMovies;
+
 }

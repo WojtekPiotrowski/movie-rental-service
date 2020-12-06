@@ -3,11 +3,14 @@ package pl.sda.MovieRental.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.sda.MovieRental.model.Cart;
+import pl.sda.MovieRental.exception.MovieAlreadyInCartException;
+import pl.sda.MovieRental.exception.NoMovieInStockException;
 import pl.sda.MovieRental.model.CopyMovie;
+import pl.sda.MovieRental.model.Movie;
 import pl.sda.MovieRental.service.CartService;
+import pl.sda.MovieRental.service.CopyMovieService;
+import pl.sda.MovieRental.service.MovieService;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -16,52 +19,40 @@ public class CartController {
 
     private final CartService cartService;
 
-    public CartController(CartService cartService) {
+    private final MovieService movieService;
+
+    public CartController(CartService cartService, CopyMovieService copyMovieService, MovieService movieService) {
         this.cartService = cartService;
+        this.movieService = movieService;
     }
 
-    /*@GetMapping("/carts")
-    ResponseEntity<List<Cart>> readAllCarts(){
-        log.warn("Exposing all the carts!");
-        return ResponseEntity.ok(cartService.findAll());
+    @GetMapping("/cart")
+    ResponseEntity<List<CopyMovie>> cartContent(){
+        log.info("reading cart contents");
+        return ResponseEntity.ok(cartService.getMoviesInCart());
     }
 
-    @GetMapping("/carts/{id}")
-    ResponseEntity<?> readCartById(@PathVariable("id") Long id){
-        log.info("reading given cart");
-        return cartService.findCartById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping("/cart/addMovie/{id}")
+    ResponseEntity<List<CopyMovie>> addMovieToCart(@PathVariable("id") Long id) throws NoMovieInStockException, MovieAlreadyInCartException {
+        log.info("adding movie to cart");
+        Movie movie = new Movie();
+        movieService.findById(id).ifPresent(addMovie -> movie.setId(addMovie.getId()));
+        cartService.addMovie(movie.getCopy());
+        return cartContent();
     }
 
-    @GetMapping("/carts/{id}/movies")
-    ResponseEntity<?> readCartMoviesById (@PathVariable("id") Long id){
-        log.info("Reading movies in given cart");
-        return cartService.findCartById(id)
-                .map(cart -> ResponseEntity.ok(cart.getCopyMovies()))
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping("/cart/removeMovie/{id}")
+    ResponseEntity<List<CopyMovie>> removeMovieFromCart(@PathVariable("id") Long id) throws NoMovieInStockException {
+        log.info("removing movie to cart");
+        Movie movie = new Movie();
+        movieService.findById(id).ifPresent(addMovie -> movie.setId(addMovie.getId()));
+        cartService.removeMovie(movie.getCopy());
+        return cartContent();
     }
 
-    @PostMapping("/carts")
-    ResponseEntity<Cart> createCart (){
-        log.info("Created new empty cart");
-        Cart resultCart = cartService.save(new Cart());
-        return ResponseEntity.created(URI.create("/"+resultCart.getId())).build();
+    @GetMapping("/cart/checkout")
+    ResponseEntity<?> checkout() throws NoMovieInStockException {
+        cartService.checkout();
+        return cartContent();
     }
-
-    @PutMapping(path = "/carts/{id}/addMovie")
-    ResponseEntity<?> addMovieToCart (@RequestBody CopyMovie copyMovie, @PathVariable("id") Long id){
-        log.info("Adding movie copy to given cart");
-
-        if(!cartService.existsById(id)){
-            return ResponseEntity.notFound().build();
-        }
-        Cart cart = cartService.findCartById(id).orElse(null);
-        cart.setId(id);
-        cart.addMovie(copyMovie);
-        cartService.save(cart);
-        return ResponseEntity.noContent().build();
-    }*/
-
-
 }

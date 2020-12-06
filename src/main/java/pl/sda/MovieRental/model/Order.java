@@ -17,8 +17,9 @@ public class Order {
     private StatusOrder statusOrder;
     private Delivery delivery;
 
-    @OneToOne
-    private Cart cart;
+    @OneToMany
+    @JoinColumn(name = "copyMovie_id")
+    private List<CopyMovie> copyMovies;
 
     @ManyToOne
     @JoinTable(name = "user_id")

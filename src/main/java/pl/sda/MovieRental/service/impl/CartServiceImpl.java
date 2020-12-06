@@ -10,9 +10,7 @@ import org.springframework.web.context.WebApplicationContext;
 import pl.sda.MovieRental.exception.MovieAlreadyInCartException;
 import pl.sda.MovieRental.exception.NoMovieInStockException;
 import pl.sda.MovieRental.model.CopyMovie;
-import pl.sda.MovieRental.model.Movie;
 import pl.sda.MovieRental.repository.CopyMovieRepository;
-import pl.sda.MovieRental.repository.MovieRepository;
 import pl.sda.MovieRental.service.CartService;
 
 import java.math.BigDecimal;
