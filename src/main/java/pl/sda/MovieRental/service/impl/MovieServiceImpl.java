@@ -7,6 +7,7 @@ import pl.sda.MovieRental.repository.MovieRepository;
 import pl.sda.MovieRental.service.MovieService;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -27,10 +28,9 @@ public class MovieServiceImpl implements MovieService {
 
 
     @Override
-    public Movie getById(Long id) {
+    public Optional<Movie> getById(Long id) {
         return movieRepository
-                .findById(id)
-                .orElse(null);
+                .findById(id);
     }
 
 
@@ -42,11 +42,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void delete(Long id) {
-        Movie movie = getById(id);
-
-        if(movie != null){
-            movieRepository.delete(movie);
-        }
+        movieRepository.deleteById(id);
     }
 
 

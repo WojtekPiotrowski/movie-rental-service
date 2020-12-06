@@ -3,6 +3,7 @@ package pl.sda.MovieRental.service;
 import pl.sda.MovieRental.model.Movie;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface MovieService {
@@ -11,7 +12,7 @@ public interface MovieService {
 
     //void addMovie(Movie movie); //ok
 
-    Movie getById(Long id);  //ok
+    Optional<Movie> getById(Long id);  //ok
 
     List<Movie> getAll();  //ok
 
