@@ -21,7 +21,7 @@ public class CartController {
 
     private final MovieService movieService;
 
-    public CartController(CartService cartService, CopyMovieService copyMovieService, MovieService movieService) {
+    public CartController(CartService cartService, MovieService movieService) {
         this.cartService = cartService;
         this.movieService = movieService;
     }
@@ -37,7 +37,7 @@ public class CartController {
         log.info("adding movie to cart");
         Movie movie = new Movie();
         movieService.findById(id).ifPresent(addMovie -> movie.setId(addMovie.getId()));
-        cartService.addMovie(movie.getCopy());
+        cartService.addMovie(movieService.getCopy(movie));
         return cartContent();
     }
 
@@ -45,13 +45,13 @@ public class CartController {
     ResponseEntity<List<CopyMovie>> removeMovieFromCart(@PathVariable("id") Long id) throws NoMovieInStockException {
         log.info("removing movie to cart");
         Movie movie = new Movie();
-        movieService.findById(id).ifPresent(addMovie -> movie.setId(addMovie.getId()));
-        cartService.removeMovie(movie.getCopy());
+        movieService.findById(id).ifPresent(removeMovie -> movie.setId(removeMovie.getId()));
+        cartService.removeMovie(movieService.getCopy(movie));
         return cartContent();
     }
 
     @GetMapping("/cart/checkout")
-    ResponseEntity<?> checkout() throws NoMovieInStockException {
+    ResponseEntity<List<CopyMovie>> checkout() throws NoMovieInStockException {
         cartService.checkout();
         return cartContent();
     }

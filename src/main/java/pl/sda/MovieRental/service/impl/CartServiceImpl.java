@@ -12,6 +12,7 @@ import pl.sda.MovieRental.exception.NoMovieInStockException;
 import pl.sda.MovieRental.model.CopyMovie;
 import pl.sda.MovieRental.repository.CopyMovieRepository;
 import pl.sda.MovieRental.service.CartService;
+import pl.sda.MovieRental.service.MovieService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -24,12 +25,14 @@ import java.util.List;
 public class CartServiceImpl implements CartService {
 
     private final CopyMovieRepository copyMovieRepository;
+    private final MovieService movieService;
 
     private List<CopyMovie> movies = new ArrayList<>();
 
     @Autowired
-    public CartServiceImpl(CopyMovieRepository copyMovieRepository) {
+    public CartServiceImpl(CopyMovieRepository copyMovieRepository, MovieService movieService) {
         this.copyMovieRepository = copyMovieRepository;
+        this.movieService = movieService;
     }
 
     /**
@@ -79,7 +82,7 @@ public class CartServiceImpl implements CartService {
         for (CopyMovie entry : movies) {
             if (!entry.isAvailable()){
                 try {
-                    movies.set(movies.indexOf(entry), entry.getMovie().getCopy());
+                    movies.set(movies.indexOf(entry), movieService.getCopy(entry.getMovie()));
                 } catch (NoMovieInStockException e) {
                     throw e;
                 }}

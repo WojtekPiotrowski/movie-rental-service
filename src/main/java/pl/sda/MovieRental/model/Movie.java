@@ -29,9 +29,4 @@ public class Movie {
 
     @OneToMany (mappedBy = "movie")
     private List<CopyMovie> copies;
-
-    public CopyMovie getCopy() throws NoMovieInStockException {
-        //TODO method to get an available copy of given movie, if there is no copy, throw exception
-        return null;
-    }
 }
