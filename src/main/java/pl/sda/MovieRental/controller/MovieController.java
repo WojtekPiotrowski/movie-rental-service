@@ -1,5 +1,6 @@
 package pl.sda.MovieRental.controller;
 
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public class MovieController {
 
     @GetMapping("/movie-list/{id}")
     public ResponseEntity<?> getMovieById(@PathVariable("id") Long id){
-        log.info("return movie by ID" + id);
+        log.info("return movie by ID " + id);
         return movieService.getById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -56,6 +57,25 @@ public class MovieController {
     }
 
 
+    @DeleteMapping("/movie-list/{id}")
+    public ResponseEntity<?> deleteMovie(@PathVariable("id") Long id){
+        movieService.delete(id);
+        log.info("movie " + id + "has been deleted");
+        return ResponseEntity
+                .ok()
+                .body(movieService.getById(id));
+    }
+
+
+ /*   @PutMapping("/movie-list/{id}")
+    public ResponseEntity<?> updateMovie(@PathVariable("id") Long id){
+        log.info("movie " + id + "has been updated");
+
+        return ResponseEntity
+                .noContent()
+                .build(movieService.update(););
+    }
+*/
 
 
 }
