@@ -38,7 +38,7 @@ public class AddressController {
     }
 
     @PutMapping("/address-list/{id}")
-    public Object updateAddress(@PathVariable("id") final Long id, @RequestBody final Address address) {
+    public ResponseEntity<?> updateAddress(@PathVariable("id") final Long id, @RequestBody final Address address) {
         if (addressService.findById(id) != null) {
             address.setId(id);
             addressService.save(address);
@@ -46,7 +46,6 @@ public class AddressController {
             return ResponseEntity
                     .noContent()
                     .build();
-        }return HttpStatus.NOT_FOUND;
-
+        }return  ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 }
