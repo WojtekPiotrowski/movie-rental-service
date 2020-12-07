@@ -3,6 +3,7 @@ package pl.sda.MovieRental.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.http.ResponseEntity;
 
 import javax.persistence.*;
 
@@ -12,7 +13,8 @@ import javax.persistence.*;
 @Entity
 public class CopyMovie {
 
-   @Id
+
+    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long copyId;
 

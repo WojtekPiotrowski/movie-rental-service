@@ -7,6 +7,7 @@ import pl.sda.MovieRental.repository.CopyMovieRepository;
 import pl.sda.MovieRental.service.CopyMovieService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CopyMovieServiceImpl implements CopyMovieService {
@@ -24,11 +25,11 @@ public class CopyMovieServiceImpl implements CopyMovieService {
 
 
     @Override
-    public CopyMovie getById(Long copyId) {
+    public Optional<CopyMovie> getById(Long copyId) {
         return copyMovieRepository
-                .findById(copyId)
-                .orElse(null);
+                .findById(copyId);
     }
+
 
     @Override
     public List<CopyMovie> getAll() {

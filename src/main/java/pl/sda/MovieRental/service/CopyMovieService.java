@@ -4,13 +4,14 @@ import pl.sda.MovieRental.model.CopyMovie;
 import pl.sda.MovieRental.model.Movie;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CopyMovieService {
 
 
     CopyMovie addCopyMovie(CopyMovie copyMovie);
 
-    CopyMovie getById(Long copyId);
+    Optional<CopyMovie> getById(Long copyId);
 
     List<CopyMovie> getAll ();
 

@@ -35,14 +35,38 @@ public class CopyMovieController {
     }
 
 
-  /*  @GetMapping("/copy-movie-list")
+    @GetMapping("/copy-movie-list")
     public ResponseEntity<List<CopyMovie>> getAllCopyMovies() {
         log.info("Return all copy movie list");
         return ResponseEntity
                 .ok()
                 .body(copyMovieService.getAll());
-    }*/
+    }
 
+
+    @GetMapping("/copy-movie-list/{id}")
+    public ResponseEntity<?> getCopyMovieById(@PathVariable("id") Long id){
+        log.info("Return copy movie by id " + id);
+
+        return copyMovieService.getById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+
+        /*return ResponseEntity
+               .ok()
+               .body(copyMovieService.getById(id));*/
+
+    }
+
+    @DeleteMapping("/copy-movie-list/{id}")
+    public ResponseEntity<?> deleteCopyMovie(@PathVariable Long id){
+        copyMovieService.delete(id);
+        log.info("movie " + id + "has been deleted");
+        return ResponseEntity
+                .ok()
+                .body(copyMovieService.getById(id));
+
+    }
 
 
 
