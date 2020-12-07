@@ -6,6 +6,8 @@ import pl.sda.MovieRental.model.Movie;
 import pl.sda.MovieRental.repository.CopyMovieRepository;
 import pl.sda.MovieRental.service.CopyMovieService;
 
+import java.util.List;
+
 @Service
 public class CopyMovieServiceImpl implements CopyMovieService {
 
@@ -16,9 +18,10 @@ public class CopyMovieServiceImpl implements CopyMovieService {
     }
 
     @Override
-    public void save(CopyMovie copyMovie) {
-        copyMovieRepository.save(copyMovie);
+    public CopyMovie addCopyMovie(CopyMovie copyMovie) {
+        return copyMovieRepository.save(copyMovie);
     }
+
 
     @Override
     public CopyMovie getById(Long copyId) {
@@ -28,19 +31,20 @@ public class CopyMovieServiceImpl implements CopyMovieService {
     }
 
     @Override
+    public List<CopyMovie> getAll() {
+        return copyMovieRepository.findAll();
+    }
+
+
+    @Override
     public void delete(Long id) {
-        CopyMovie copyMovie = getById(id);
-
-        if(copyMovie != null) {
-            copyMovieRepository.delete(copyMovie);
-        }
-
+        copyMovieRepository.deleteById(id);
     }
 
     @Override
-    public void update(CopyMovie copyMovie) {
+    public void save(CopyMovie copyMovie) {
         copyMovieRepository.save(copyMovie);
-
-
     }
+
+
 }

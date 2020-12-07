@@ -19,6 +19,7 @@ public class MovieServiceImpl implements MovieService {
         this.movieRepository = movieRepository;
     }
 
+    //private List<Movie> movies;
 
 
     @Override
@@ -45,9 +46,31 @@ public class MovieServiceImpl implements MovieService {
         movieRepository.deleteById(id);
     }
 
-
     @Override
-    public Movie update(Movie movie) {
-        return movieRepository.save(movie);
+    public void save(Movie movie) {
+        movieRepository.save(movie);
+/*
+        Long id = 1L;
+        movieRepository.findById(id)
+                .map(movie1 -> {
+                    movie1.setTitle(movie.getTitle());
+                    movie1.setReleaseDate(movie.getReleaseDate());
+                    movie1.setGenre(movie.getGenre());
+                    movie1.setDescription(movie.getDescription());
+                    movie1.setRateNumbers(movie.getRateNumbers());
+                    movie1.setAverageRate(movie.getAverageRate());
+                    movie1.setTotalCopyNumbers(movie.getTotalCopyNumbers());
+                    movie1.setAvailableCopyNumbers(movie.getAvailableCopyNumbers());
+                    movie1.setPrice(movie.getPrice());
+                    return movieRepository.save(movie1);
+                })
+                .orElseGet(()->{
+                    movie.setId(id);
+                    return movieRepository.save(movie);
+                });*/
+        //movie.getId().equals(movie.getId());
+
     }
+
+
 }

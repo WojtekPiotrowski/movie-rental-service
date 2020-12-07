@@ -22,16 +22,14 @@ public class MovieController {
 
     private final MovieService movieService;
 
-
     public MovieController(final MovieService movieService) {
         this.movieService = movieService;
     }
 
 
 
-
     @GetMapping("/movie-list")
-    public ResponseEntity<List<Movie>> readAllMovies(){
+    public ResponseEntity<List<Movie>> getAllMovies(){
         log.info("Return all movie list");
         return ResponseEntity
                 .ok()
@@ -45,7 +43,6 @@ public class MovieController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
 
 
     @PostMapping("/movie-list")
@@ -68,16 +65,18 @@ public class MovieController {
     }
 
 
-    @PutMapping("/movie-list")
-    public ResponseEntity<?> updateMovie(@RequestBody final Movie movie){
+    @PutMapping("/movie-list/{id}")
+    public ResponseEntity<?> updateMovie(@PathVariable("id") Long id, @RequestBody final Movie movie){
 
-       movieService.update(movie);
+        movieService.getById(id);
+        movieService.save(movie);
+        movie.setId(id);
         log.info("movie " + movie + "has been updated");
 
         return ResponseEntity
                 .noContent()
                 .build();
-    }
 
+    }
 
 }
