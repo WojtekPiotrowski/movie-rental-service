@@ -20,14 +20,15 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    @GetMapping("/address")
+    @GetMapping("address/address-list")
     public ResponseEntity<List<Address>> readAllAddress() {
         log.info("Return all address list");
         return ResponseEntity
                 .ok(addressService.getAll());
     }
+
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("address/address-list")
+    @PostMapping("/address")
     public ResponseEntity<Address> createAddress(@RequestBody final Address address) {
         Address newAddress = addressService.save(address);
         log.info("New address has been created");
@@ -35,12 +36,16 @@ public class AddressController {
                 .created(URI.create("/" + newAddress.getId()))
                 .body(newAddress);
     }
-//       @PutMapping("/address-list/{id}")
-//    public ResponseEntity<?> updateAddress(@PathVariable("id") Long id){
-//        log.info("address " + id + "has been updated");
-//        return ResponseEntity
-//                .noContent()
-//                .build(addressService.update());
-//    }
+
+    @PutMapping("/address-list/{id}")
+    public ResponseEntity<?> updateAddress(@PathVariable("id") final Long id, @RequestBody final Address address) {
+        addressService.findById(id);
+        address.setId(id);
+        addressService.save(address);
+        log.info("address " + address + " has been updated");
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
 
 }

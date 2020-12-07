@@ -24,10 +24,7 @@ private final AddressRepository addressRepository;
         return addressRepository.findById(id).orElse(null);
     }
 
-    @Override
-    public void update(Long id) {
-        addressRepository.save(id);
-    }
+
 
     @Override
     public Address save(Address address) {
