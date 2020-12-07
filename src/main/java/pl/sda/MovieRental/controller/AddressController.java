@@ -38,14 +38,15 @@ public class AddressController {
     }
 
     @PutMapping("/address-list/{id}")
-    public ResponseEntity<?> updateAddress(@PathVariable("id") final Long id, @RequestBody final Address address) {
-        addressService.findById(id);
-        address.setId(id);
-        addressService.save(address);
-        log.info("address " + address + " has been updated");
-        return ResponseEntity
-                .noContent()
-                .build();
-    }
+    public Object updateAddress(@PathVariable("id") final Long id, @RequestBody final Address address) {
+        if (addressService.findById(id) != null) {
+            address.setId(id);
+            addressService.save(address);
+            log.info("address " + address + " has been updated");
+            return ResponseEntity
+                    .noContent()
+                    .build();
+        }return HttpStatus.NOT_FOUND;
 
+    }
 }
