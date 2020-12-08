@@ -26,7 +26,7 @@ public class OrderController {
         return ResponseEntity.ok(orderService.findAllOrdersByUserId(userId));
     }
 
-    @GetMapping("/user/{userId}/orders/{orderId}")
+    @GetMapping("/orders/{orderId}")
     ResponseEntity<?> getOrderById (@PathVariable("orderId") Long orderId) {
         log.info("reading given order for given user");
         return orderService.findById(orderId)

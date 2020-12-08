@@ -30,7 +30,7 @@ public class CopyMovieController {
         log.info("New copy movie has been created" );
         CopyMovie newCopyMovie = copyMovieService.addCopyMovie(copyMovie);
         return ResponseEntity
-                .created(URI.create("/" + newCopyMovie.getCopyId()))
+                .created(URI.create("/" + newCopyMovie.getId()))
                 .body(newCopyMovie);
     }
 
@@ -55,10 +55,9 @@ public class CopyMovieController {
 
     @DeleteMapping("/copy-movie-list/{id}")
     public ResponseEntity<?> deleteCopyMovie(@PathVariable Long id) {
-
         if (copyMovieService.findById(id).isPresent()) {
             copyMovieService.delete(id);
-            log.info("movie " + id + "has been deleted");
+            log.info(String.format("Copy with id %s has been deleted", id));
             return ResponseEntity
                     .ok()
                     .body(copyMovieService.findById(id));
@@ -70,10 +69,11 @@ public class CopyMovieController {
     @PutMapping("/copy-movie-list/{id}")
     public ResponseEntity<?> updateCopyMovie(@PathVariable("id") Long id, @RequestBody final CopyMovie copyMovie) {
 
-       if( copyMovieService.findById(id).isPresent()) {
-           copyMovie.setCopyId(id);
+       if(copyMovieService.findById(id).isPresent()) {
+           copyMovie.setId(id);
            copyMovieService.save(copyMovie);
-           log.info("Copy movie " + copyMovie + " has been updated");
+           log.info(String.format("Copy of movie %s with id %s has been updated",
+                   copyMovie.getMovie().getTitle(), copyMovie.getId()));
 
            return ResponseEntity
                    .noContent()

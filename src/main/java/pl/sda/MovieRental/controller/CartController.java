@@ -42,7 +42,7 @@ public class CartController {
 
     @GetMapping("/cart/removeMovie/{id}")
     ResponseEntity<List<CopyMovie>> removeMovieFromCart(@PathVariable("id") Long id) throws NoMovieInStockException {
-        log.info("removing movie to cart");
+        log.info("removing movie from cart");
         Movie movie = new Movie();
         movieService.findById(id).ifPresent(removeMovie -> movie.setId(removeMovie.getId()));
         cartService.removeMovie(movieService.getCopy(movie));

@@ -3,7 +3,6 @@ package pl.sda.MovieRental.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.http.ResponseEntity;
 
 import javax.persistence.*;
 
@@ -34,5 +33,13 @@ public class CopyMovie {
     @Override
     public int hashCode() {
         return movie.getTitle().hashCode();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

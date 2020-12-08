@@ -2,20 +2,13 @@ package pl.sda.MovieRental.controller;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.boot.model.source.internal.hbm.ModelBinder;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import pl.sda.MovieRental.model.Address;
-import pl.sda.MovieRental.model.Cart;
 import pl.sda.MovieRental.model.Movie;
 import pl.sda.MovieRental.service.MovieService;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
