@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import pl.sda.MovieRental.model.Order;
 import pl.sda.MovieRental.service.OrderService;
 
 import java.util.List;
@@ -20,17 +21,15 @@ public class OrderController {
     }
 
     @GetMapping("/user/{userId}/orders")
-    ResponseEntity<?> getAllOrders (@PathVariable("userId") Long userId){
+    ResponseEntity<List<Order>> getAllOrders (@PathVariable("userId") Long userId){
         log.info("reading all orders for given user");
-        return orderService.findAllOrdersByUserId(userId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(orderService.findAllOrdersByUserId(userId));
     }
 
     @GetMapping("/user/{userId}/orders/{orderId}")
-    ResponseEntity<?> getOrderById (@PathVariable("userId") Long userId, @PathVariable("orderId") Long orderId) {
+    ResponseEntity<?> getOrderById (@PathVariable("orderId") Long orderId) {
         log.info("reading given order for given user");
-        return orderService.findByUserIdAndOrderId(userId, orderId)
+        return orderService.findById(orderId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
