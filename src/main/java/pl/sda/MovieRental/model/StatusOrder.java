@@ -5,6 +5,6 @@ public enum StatusOrder {
     ORDER_PLACED,
     DELIVERED,
     IN_RETURN,
-    COMPLETED;
+    COMPLETED
 
 }
