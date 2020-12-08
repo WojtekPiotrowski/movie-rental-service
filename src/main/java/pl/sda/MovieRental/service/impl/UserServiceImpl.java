@@ -21,13 +21,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String username) {
+    public Optional<User> findById(Long userId) {
+        return userRepository.findById(userId);
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
     @Override
     public void save(User user) {
-        user.setPassword((user.getPassword()));
         userRepository.save(user);
     }
 
@@ -37,4 +41,6 @@ public class UserServiceImpl implements UserService {
         log.info("Deleting user with all inner objects");
         userRepository.deleteById(id);
     }
+
+
 }

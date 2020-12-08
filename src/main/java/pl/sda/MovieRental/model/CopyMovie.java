@@ -12,14 +12,14 @@ import javax.persistence.*;
 @Entity
 public class CopyMovie {
 
-   @Id
+
+    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
    @ManyToOne
    @JoinColumn(name = "movie_id")
     private Movie movie;
-
     private boolean available;
 
     public boolean isAvailable() {
@@ -33,5 +33,21 @@ public class CopyMovie {
     @Override
     public int hashCode() {
         return movie.getTitle().hashCode();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 }

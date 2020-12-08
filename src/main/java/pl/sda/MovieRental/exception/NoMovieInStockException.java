@@ -4,6 +4,8 @@ import pl.sda.MovieRental.model.Movie;
 
 public class NoMovieInStockException extends Exception {
 
+    //TODO
+
     public static final String DEFAULT_MESSAGE = "No movies in stock";
 
     public NoMovieInStockException() {

@@ -17,12 +17,8 @@ public class Order {
     private StatusOrder statusOrder;
     private Delivery delivery;
 
-//    @OneToOne
-//    private Cart cart;
-
     @ManyToOne
     @JoinTable(name = "user_id")
     private User user;
-
 }
 
