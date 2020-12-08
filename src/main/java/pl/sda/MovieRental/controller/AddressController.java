@@ -46,8 +46,21 @@ public class AddressController {
             return ResponseEntity
                     .noContent()
                     .build();
+
         }
         return ResponseEntity
+                .notFound()
+                .build();
+
+    }
+
+    @GetMapping("address/address-list/{id}")
+    public ResponseEntity<?> getAddressById(@PathVariable("id") Long id, Address address) {
+        if (addressService.findById(id) != null) {
+            log.info("Return address by Id " + id);
+            return ResponseEntity
+                    .ok(addressService.findById(id));
+        } else return ResponseEntity
                 .notFound()
                 .build();
     }
