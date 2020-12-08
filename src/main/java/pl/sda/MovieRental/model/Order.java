@@ -13,8 +13,13 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "orderId")
     private Long id;
+
+    @Column(name = "order_status", nullable = false)
     private StatusOrder statusOrder;
+
+    @Column(name = "delivery_option", nullable = false)
     private Delivery delivery;
 
     @OneToOne
@@ -26,6 +31,5 @@ public class Order {
     @ManyToOne
     @JoinTable(name = "user_id")
     private User user;
-
 }
 
