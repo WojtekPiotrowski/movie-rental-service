@@ -11,6 +11,6 @@ public class MovieAlreadyInCartException extends Throwable {
     }
 
     public MovieAlreadyInCartException(Movie movie) {
-        super(String.format("% is already in cart",movie.getTitle()));
+        super(String.format("%s is already in cart",movie.getTitle()));
     }
 }
