@@ -10,7 +10,6 @@ import org.springframework.web.context.WebApplicationContext;
 import pl.sda.MovieRental.exception.MovieAlreadyInCartException;
 import pl.sda.MovieRental.exception.NoMovieInStockException;
 import pl.sda.MovieRental.model.CopyMovie;
-import pl.sda.MovieRental.repository.CopyMovieRepository;
 import pl.sda.MovieRental.service.CartService;
 import pl.sda.MovieRental.service.MovieService;
 
@@ -24,14 +23,12 @@ import java.util.List;
 @Transactional
 public class CartServiceImpl implements CartService {
 
-    private final CopyMovieRepository copyMovieRepository;
     private final MovieService movieService;
 
     private List<CopyMovie> movies = new ArrayList<>();
 
     @Autowired
-    public CartServiceImpl(CopyMovieRepository copyMovieRepository, MovieService movieService) {
-        this.copyMovieRepository = copyMovieRepository;
+    public CartServiceImpl(MovieService movieService) {
         this.movieService = movieService;
     }
 
@@ -88,8 +85,8 @@ public class CartServiceImpl implements CartService {
                 }}
             entry.setAvailable(false);
         }
-        copyMovieRepository.saveAll(movies);
-        copyMovieRepository.flush();
+        //copyMovieRepository.saveAll(movies);
+        //copyMovieRepository.flush();
         movies.clear();
     }
 

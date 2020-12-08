@@ -8,7 +8,6 @@ import pl.sda.MovieRental.exception.NoMovieInStockException;
 import pl.sda.MovieRental.model.CopyMovie;
 import pl.sda.MovieRental.model.Movie;
 import pl.sda.MovieRental.service.CartService;
-import pl.sda.MovieRental.service.CopyMovieService;
 import pl.sda.MovieRental.service.MovieService;
 
 import java.util.List;
