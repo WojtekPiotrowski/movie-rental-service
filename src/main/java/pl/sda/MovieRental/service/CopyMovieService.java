@@ -11,9 +11,9 @@ public interface CopyMovieService {
 
     CopyMovie addCopyMovie(CopyMovie copyMovie);
 
-    Optional<CopyMovie> getById(Long copyId);
+    Optional<CopyMovie> findById(Long copyId);
 
-    List<CopyMovie> getAll ();
+    List<CopyMovie> findAll ();
 
     void delete(Long copyId);
 

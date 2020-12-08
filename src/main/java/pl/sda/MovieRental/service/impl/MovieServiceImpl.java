@@ -19,7 +19,6 @@ public class MovieServiceImpl implements MovieService {
         this.movieRepository = movieRepository;
     }
 
-    //private List<Movie> movies;
 
 
     @Override
@@ -29,14 +28,14 @@ public class MovieServiceImpl implements MovieService {
 
 
     @Override
-    public Optional<Movie> getById(Long id) {
+    public Optional<Movie> findById(Long id) {
         return movieRepository
                 .findById(id);
     }
 
 
     @Override
-    public List<Movie> getAll() {
+    public List<Movie> findAll() {
         return movieRepository.findAll();
     }
 
@@ -45,6 +44,7 @@ public class MovieServiceImpl implements MovieService {
     public void delete(Long id) {
         movieRepository.deleteById(id);
     }
+
 
     @Override
     public void save(Movie movie) {

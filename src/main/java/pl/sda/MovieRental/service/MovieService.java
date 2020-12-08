@@ -12,9 +12,9 @@ public interface MovieService {
 
     Movie addMovie(Movie movie); //ok
 
-    Optional<Movie> getById(Long id);  //ok
+    Optional<Movie> findById(Long id);  //ok
 
-    List<Movie> getAll();  //ok
+    List<Movie> findAll();  //ok
 
     void delete(Long id);  //ok
 

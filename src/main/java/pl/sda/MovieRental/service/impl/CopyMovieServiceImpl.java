@@ -25,14 +25,14 @@ public class CopyMovieServiceImpl implements CopyMovieService {
 
 
     @Override
-    public Optional<CopyMovie> getById(Long copyId) {
+    public Optional<CopyMovie> findById(Long copyId) {
         return copyMovieRepository
                 .findById(copyId);
     }
 
 
     @Override
-    public List<CopyMovie> getAll() {
+    public List<CopyMovie> findAll() {
         return copyMovieRepository.findAll();
     }
 

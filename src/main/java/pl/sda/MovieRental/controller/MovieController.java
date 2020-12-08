@@ -8,12 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pl.sda.MovieRental.model.Address;
 import pl.sda.MovieRental.model.Cart;
 import pl.sda.MovieRental.model.Movie;
 import pl.sda.MovieRental.service.MovieService;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -33,13 +35,13 @@ public class MovieController {
         log.info("Return all movie list");
         return ResponseEntity
                 .ok()
-                .body(movieService.getAll());
+                .body(movieService.findAll());
     }
 
     @GetMapping("/movie-list/{id}")
     public ResponseEntity<?> getMovieById(@PathVariable("id") Long id){
         log.info("return movie by ID " + id);
-        return movieService.getById(id)
+        return movieService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -56,27 +58,40 @@ public class MovieController {
 
 
     @DeleteMapping("/movie-list/{id}")
-    public ResponseEntity<?> deleteMovie(@PathVariable("id") Long id){
-        movieService.delete(id);
-        log.info("movie " + id + "has been deleted");
-        return ResponseEntity
-                .ok()
-                .body(movieService.getById(id));
-    }
+    public ResponseEntity<?> deleteMovie(@PathVariable("id") Long id) {
 
+        if (movieService.findById(id).isPresent()) {
+            movieService.delete(id);
+            log.info("movie " + id + "has been deleted");
+            return ResponseEntity
+                    .ok()
+                    .body(movieService.findById(id));
+        } else {
+           return ResponseEntity.notFound().build();
+        }
+
+    }
 
     @PutMapping("/movie-list/{id}")
     public ResponseEntity<?> updateMovie(@PathVariable("id") Long id, @RequestBody final Movie movie){
 
-        movieService.getById(id);
-        movieService.save(movie);
-        movie.setId(id);
-        log.info("movie " + movie + "has been updated");
-
-        return ResponseEntity
-                .noContent()
-                .build();
+       if( movieService.findById(id).isPresent()) {
+           movie.setId(id);
+           movieService.save(movie);
+           log.info("movie " + movie + "has been updated");
+           return ResponseEntity
+                   .noContent()
+                   .build();
+       } else {
+       return ResponseEntity.notFound().build();
+    }
 
     }
+
+
+
+
+
+
 
 }

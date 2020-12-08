@@ -40,7 +40,7 @@ public class CopyMovieController {
         log.info("Return all copy movie list");
         return ResponseEntity
                 .ok()
-                .body(copyMovieService.getAll());
+                .body(copyMovieService.findAll());
     }
 
 
@@ -48,32 +48,40 @@ public class CopyMovieController {
     public ResponseEntity<?> getCopyMovieById(@PathVariable("id") Long id){
         log.info("Return copy movie by id " + id);
 
-        return copyMovieService.getById(id)
+        return copyMovieService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
-
-        /*return ResponseEntity
-               .ok()
-               .body(copyMovieService.getById(id));*/
-
     }
 
     @DeleteMapping("/copy-movie-list/{id}")
-    public ResponseEntity<?> deleteCopyMovie(@PathVariable Long id){
-        copyMovieService.delete(id);
-        log.info("movie " + id + "has been deleted");
-        return ResponseEntity
-                .ok()
-                .body(copyMovieService.getById(id));
+    public ResponseEntity<?> deleteCopyMovie(@PathVariable Long id) {
 
+        if (copyMovieService.findById(id).isPresent()) {
+            copyMovieService.delete(id);
+            log.info("movie " + id + "has been deleted");
+            return ResponseEntity
+                    .ok()
+                    .body(copyMovieService.findById(id));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
+    @PutMapping("/copy-movie-list/{id}")
+    public ResponseEntity<?> updateCopyMovie(@PathVariable("id") Long id, @RequestBody final CopyMovie copyMovie) {
 
+       if( copyMovieService.findById(id).isPresent()) {
+           copyMovie.setCopyId(id);
+           copyMovieService.save(copyMovie);
+           log.info("Copy movie " + copyMovie + " has been updated");
 
-
-
-
-
+           return ResponseEntity
+                   .noContent()
+                   .build();
+       } else {
+           return ResponseEntity.notFound().build();
+       }
+    }
 
 
 
