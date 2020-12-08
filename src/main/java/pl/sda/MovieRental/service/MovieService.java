@@ -1,5 +1,4 @@
 package pl.sda.MovieRental.service;
-
 import pl.sda.MovieRental.model.Movie;
 
 import java.util.List;
@@ -8,21 +7,15 @@ import java.util.Optional;
 
 public interface MovieService {
 
+    Movie addMovie(Movie movie);
+  
+    Optional<Movie> findById(Long id);
 
+    List<Movie> findAll();
 
-    Movie addMovie(Movie movie); //ok
+    void delete(Long id);
 
-    Optional<Movie> findById(Long id);  //ok
+    void save (Movie movie);
 
-    List<Movie> findAll();  //ok
-
-    void delete(Long id);  //ok
-
-    void save (Movie movie);  //ok
-
-
-
-
-
-
+    CopyMovie getCopy(Movie movie) throws NoMovieInStockException;
 }

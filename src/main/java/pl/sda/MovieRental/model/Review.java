@@ -17,6 +17,8 @@ import javax.persistence.Id;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long Id;
+
     private Long movieId;
     private Long rentalId;
 }

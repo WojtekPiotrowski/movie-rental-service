@@ -13,19 +13,21 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "orderId")
     private Long id;
+
+    @Column(name = "order_status", nullable = false)
     private StatusOrder statusOrder;
+
+    @Column(name = "delivery_option", nullable = false)
     private Delivery delivery;
 
-    @OneToOne
-    @JoinTable(name = "order_cart",
-    joinColumns = @JoinColumn(name = "order_id"),
-    inverseJoinColumns = @JoinColumn(name = "cart_id"))
-    private Cart cart;
+    @OneToMany
+    @JoinColumn(name = "copyMovie_id")
+    private List<CopyMovie> copyMovies;
 
     @ManyToOne
     @JoinTable(name = "user_id")
     private User user;
-
 }
 

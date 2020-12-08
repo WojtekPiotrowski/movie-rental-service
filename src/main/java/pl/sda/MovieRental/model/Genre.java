@@ -8,8 +8,5 @@ public enum Genre {
     FANTASY,
     HORROR,
     MYSTERY,
-    ROMANCE;
-
-
-
+    ROMANCE
 }
