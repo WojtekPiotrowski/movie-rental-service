@@ -6,6 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import pl.sda.MovieRental.model.User;
 import pl.sda.MovieRental.service.UserService;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -20,10 +22,10 @@ public class UserServiceImplTest {
         User user = new User();
         user.setUsername("lukasz");
         //when
-        userService.save(user);
+        User result = userService.save(user);
 
         //then
-        assertEquals(userService,user);
+        assertEquals(result, user);
     }
 
 }
