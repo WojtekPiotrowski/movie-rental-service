@@ -3,6 +3,7 @@ package pl.sda.MovieRental.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.http.ResponseEntity;
 
 import javax.persistence.*;
 
@@ -12,14 +13,14 @@ import javax.persistence.*;
 @Entity
 public class CopyMovie {
 
-   @Id
+
+    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
    @ManyToOne
    @JoinColumn(name = "movie_id")
     private Movie movie;
-
     private boolean available;
 
     public boolean isAvailable() {
