@@ -22,8 +22,4 @@ public class Address {
     private String zipCode;
     private int houseNumber;
     private int streetNumber;
-
-   /* @OneToOne
-    @JoinTable(name = "user_id")
-    private User user;*/
     }

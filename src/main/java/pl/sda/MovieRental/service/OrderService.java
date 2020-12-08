@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OrderService {
-    List<Order> findAllOrdersByUserId(Long userId);
+    Optional<List<Order>> findAllOrdersByUserId(Long userId);
 
-    List<Order> findAll();
+    Optional<Order> findByUserIdAndOrderId(Long userId, Long orderId);
 
-    Optional<Order> findById(Long orderId);
+    Optional<List<Order>> findAll();
 }

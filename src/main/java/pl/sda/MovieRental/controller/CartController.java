@@ -31,6 +31,7 @@ public class CartController {
         log.info("reading cart contents");
         return ResponseEntity.ok(cartService.getMoviesInCart());
     }
+
     @GetMapping("/cart/addMovie/{id}")
     ResponseEntity<List<CopyMovie>> addMovieToCart(@PathVariable("id") Long id) throws NoMovieInStockException, MovieAlreadyInCartException {
         log.info("adding movie to cart");

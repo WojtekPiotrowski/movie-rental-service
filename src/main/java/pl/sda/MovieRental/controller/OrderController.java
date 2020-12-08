@@ -22,14 +22,15 @@ public class OrderController {
     @GetMapping("/user/{userId}/orders")
     ResponseEntity<?> getAllOrders (@PathVariable("userId") Long userId){
         log.info("reading all orders for given user");
-        return ResponseEntity
-                .ok(orderService.findAllOrdersByUserId(userId));
+        return orderService.findAllOrdersByUserId(userId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/user/{userId}/orders/{orderId}")
-    ResponseEntity<?> getOrderById (@PathVariable("orderId") Long orderId) {
+    ResponseEntity<?> getOrderById (@PathVariable("userId") Long userId, @PathVariable("orderId") Long orderId) {
         log.info("reading given order for given user");
-        return orderService.findById(orderId)
+        return orderService.findByUserIdAndOrderId(userId, orderId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

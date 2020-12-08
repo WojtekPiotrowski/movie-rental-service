@@ -1,12 +1,15 @@
 package pl.sda.MovieRental.model;
 
+import com.sun.xml.bind.v2.TODO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.sda.MovieRental.exception.NoMovieInStockException;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,9 +25,10 @@ public class Movie {
     private LocalDate releaseDate;
     private Genre genre;
     private String description;
-    private int rateNumbers; //do sprawdzenia*//
-    private double averageRate;
-    private int totalCopyNumbers;  //do sprawdzenia*//
-    private int availableCopyNumbers; //do sprawdzenia*//
+    private int numberOfRatings;
+    private double averageRating;
     private BigDecimal price;
+
+    @OneToMany (mappedBy = "movie")
+    private List<CopyMovie> copies;
 }
