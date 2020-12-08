@@ -46,6 +46,9 @@ public class AddressController {
             return ResponseEntity
                     .noContent()
                     .build();
-        }return  ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity
+                .notFound()
+                .build();
     }
 }
