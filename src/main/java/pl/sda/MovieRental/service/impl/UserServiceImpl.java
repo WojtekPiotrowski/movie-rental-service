@@ -37,8 +37,9 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void deleteById(Long id) {
+    public Optional<User> deleteById(Long id) {
         log.info("Deleting user with all inner objects");
         userRepository.deleteById(id);
+        return null;
     }
 }

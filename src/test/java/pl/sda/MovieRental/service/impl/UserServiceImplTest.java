@@ -1,5 +1,7 @@
 package pl.sda.MovieRental.service.impl;
 
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,7 +29,7 @@ public class UserServiceImplTest {
         User result = userService.save(user);
 
         //then
-        assertEquals(result,user);
+        assertEquals(result, user);
     }
 
 
@@ -38,9 +40,9 @@ public class UserServiceImplTest {
         user.setId(1L);
         //when
         userService.save(user);
-        Optional<User> result =userService.findById(user.getId());
+        Optional<User> result = userService.findById(user.getId());
         //then
-        assertEquals(result.hashCode(),user.hashCode());
+        assertEquals(result.hashCode(), user.hashCode());
     }
 
     @Test
@@ -52,21 +54,21 @@ public class UserServiceImplTest {
         userService.save(user);
         Optional<User> result = userService.findByUsername(user.getUsername());
         //then
-        assertEquals(result.hashCode(),user.hashCode());
+        assertEquals(result.hashCode(), user.hashCode());
 
 
     }
-//
-//    @Test
-//    void deleteById() {
-//        //given
-//        User user = new User();
-//        user.setId(5L);
-//        //when
-//        userService.save(user);
-//      User result = userService.deleteById(user.getId());
-//
-//        //then
-//        assertEquals(result,user);
-//    }
+
+    @Test
+    void deleteById() {
+        //given
+        User user = new User();
+
+        //when
+        Long userId = userService.save(user).getId();
+        userService.deleteById(userId);
+
+        //then
+        assertThat(userService.findById(userId)).isEmpty();
+    }
 }
