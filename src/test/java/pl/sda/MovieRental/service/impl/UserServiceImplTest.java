@@ -1,10 +1,12 @@
 package pl.sda.MovieRental.service.impl;
-import org.assertj.core.api.Assertions;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import pl.sda.MovieRental.exception.NoUserInStockException;
 import pl.sda.MovieRental.model.User;
 import pl.sda.MovieRental.service.UserService;
+
 
 import java.util.Optional;
 
@@ -25,7 +27,46 @@ public class UserServiceImplTest {
         User result = userService.save(user);
 
         //then
-        assertEquals(result, user);
+        assertEquals(result,user);
     }
 
+
+    @Test
+    void findById() throws NoUserInStockException {
+        //given
+        User user = new User();
+        user.setId(1L);
+        //when
+        userService.save(user);
+        Optional<User> result =userService.findById(user.getId());
+        //then
+        assertEquals(result.hashCode(),user.hashCode());
+    }
+
+    @Test
+    void findByUsername() {
+        //given
+        User user = new User();
+        user.setUsername("john");
+        //when
+        userService.save(user);
+        Optional<User> result = userService.findByUsername(user.getUsername());
+        //then
+        assertEquals(result.hashCode(),user.hashCode());
+
+
+    }
+//
+//    @Test
+//    void deleteById() {
+//        //given
+//        User user = new User();
+//        user.setId(5L);
+//        //when
+//        userService.save(user);
+//      User result = userService.deleteById(user.getId());
+//
+//        //then
+//        assertEquals(result,user);
+//    }
 }
