@@ -9,15 +9,20 @@ import java.util.Optional;
 
 public interface MovieService {
 
-    Movie addMovie(Movie movie);
+    Movie addMovie(Movie movie) throws Exception;
   
-    Optional<Movie> findById(Long id);
+    Optional<Movie> findById(Long id) throws Exception;
 
     List<Movie> findAll();
 
-    void delete(Long id);
+    //void delete(Movie movie) throws Exception;
+    void deleteById(Long id) throws Exception;
 
     void save (Movie movie);
 
     CopyMovie getCopy(Movie movie) throws NoMovieInStockException;
+
+    Optional<Movie> findByTitle(String title) throws Exception;
+
+
 }

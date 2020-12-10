@@ -32,7 +32,7 @@ public class MovieController {
     }
 
     @GetMapping("/movie-list/{id}")
-    public ResponseEntity<?> getMovieById(@PathVariable("id") Long id){
+    public ResponseEntity<?> getMovieById(@PathVariable("id") Long id) throws Exception {
         log.info("return movie by ID " + id);
         return movieService.findById(id)
                 .map(ResponseEntity::ok)
@@ -41,7 +41,7 @@ public class MovieController {
 
 
     @PostMapping("/movie-list")
-    public ResponseEntity<?> createMovie(@RequestBody final Movie movie){
+    public ResponseEntity<?> createMovie(@RequestBody final Movie movie) throws Exception {
         log.info("New movie has been created");
         Movie newMovie = movieService.addMovie(movie);
         return ResponseEntity
@@ -51,10 +51,10 @@ public class MovieController {
 
 
     @DeleteMapping("/movie-list/{id}")
-    public ResponseEntity<?> deleteMovie(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deleteMovie(@PathVariable("id") Long id) throws Exception {
 
         if (movieService.findById(id).isPresent()) {
-            movieService.delete(id);
+            movieService.deleteById(id);
             log.info("movie " + id + "has been deleted");
             return ResponseEntity
                     .ok()
@@ -66,7 +66,7 @@ public class MovieController {
     }
 
     @PutMapping("/movie-list/{id}")
-    public ResponseEntity<?> updateMovie(@PathVariable("id") Long id, @RequestBody final Movie movie){
+    public ResponseEntity<?> updateMovie(@PathVariable("id") Long id, @RequestBody final Movie movie) throws Exception {
 
        if( movieService.findById(id).isPresent()) {
            movie.setId(id);

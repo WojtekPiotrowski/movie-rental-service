@@ -2,6 +2,8 @@ package pl.sda.MovieRental.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import pl.sda.MovieRental.exception.MovieAlreadyExistsException;
+import pl.sda.MovieRental.exception.MovieDoesNotExistsException;
 import pl.sda.MovieRental.exception.NoMovieInStockException;
 import pl.sda.MovieRental.model.CopyMovie;
 import pl.sda.MovieRental.model.Movie;
@@ -22,16 +24,31 @@ public class MovieServiceImpl implements MovieService {
 
 
 
+
     @Override
-    public Movie addMovie(Movie movie) {
+    public Movie addMovie(Movie movie) throws Exception {
+
+
+        if (movieRepository.findByTitle(movie.getTitle()).isPresent()) {
+            throw new MovieAlreadyExistsException(movie.getTitle());
+        }
         return movieRepository.save(movie);
     }
 
 
     @Override
-    public Optional<Movie> findById(Long id) {
-        return movieRepository
-                .findById(id);
+    public Optional<Movie> findById(Long id) throws Exception {
+
+
+        return movieRepository.findById(id);
+    }
+
+    @Override
+    public Optional<Movie> findByTitle(String title) {
+
+
+            return movieRepository.findByTitle(title);
+
     }
 
 
@@ -42,40 +59,27 @@ public class MovieServiceImpl implements MovieService {
 
 
     @Override
-    public void delete(Long id) {
-        movieRepository.deleteById(id);
-    }
+    public void deleteById(Long id) throws Exception {
+
+
+        if(movieRepository.findById(id).isPresent()){
+            movieRepository.deleteById(id);
+        } else throw new MovieDoesNotExistsException();
+}
 
 
     @Override
     public void save(Movie movie) {
         movieRepository.save(movie);
-/*
-        Long id = 1L;
-        movieRepository.findById(id)
-                .map(movie1 -> {
-                    movie1.setTitle(movie.getTitle());
-                    movie1.setReleaseDate(movie.getReleaseDate());
-                    movie1.setGenre(movie.getGenre());
-                    movie1.setDescription(movie.getDescription());
-                    movie1.setRateNumbers(movie.getRateNumbers());
-                    movie1.setAverageRate(movie.getAverageRate());
-                    movie1.setTotalCopyNumbers(movie.getTotalCopyNumbers());
-                    movie1.setAvailableCopyNumbers(movie.getAvailableCopyNumbers());
-                    movie1.setPrice(movie.getPrice());
-                    return movieRepository.save(movie1);
-                })
-                .orElseGet(()->{
-                    movie.setId(id);
-                    return movieRepository.save(movie);
-                });*/
-        //movie.getId().equals(movie.getId());
+    }
 
-    }   
+
 
     @Override
     public CopyMovie getCopy(Movie movie) throws NoMovieInStockException {
         throw new NoMovieInStockException();
         //TODO method to get an available copy of given movie, if there is no copy, throw exception
     }
+
+
 }

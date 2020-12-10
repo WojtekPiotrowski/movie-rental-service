@@ -32,7 +32,7 @@ public class CartController {
     }
 
     @GetMapping("/cart/addMovie/{id}")
-    ResponseEntity<List<CopyMovie>> addMovieToCart(@PathVariable("id") Long id) throws NoMovieInStockException, MovieAlreadyInCartException {
+    ResponseEntity<List<CopyMovie>> addMovieToCart(@PathVariable("id") Long id) throws Exception, MovieAlreadyInCartException {
         log.info("adding movie to cart");
         Movie movie = new Movie();
         movieService.findById(id).ifPresent(addMovie -> movie.setId(addMovie.getId()));
@@ -41,7 +41,7 @@ public class CartController {
     }
 
     @GetMapping("/cart/removeMovie/{id}")
-    ResponseEntity<List<CopyMovie>> removeMovieFromCart(@PathVariable("id") Long id) throws NoMovieInStockException {
+    ResponseEntity<List<CopyMovie>> removeMovieFromCart(@PathVariable("id") Long id) throws Exception {
         log.info("removing movie from cart");
         Movie movie = new Movie();
         movieService.findById(id).ifPresent(removeMovie -> movie.setId(removeMovie.getId()));
