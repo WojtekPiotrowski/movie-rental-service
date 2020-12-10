@@ -34,10 +34,9 @@ public class UserServiceImplTest {
 
 
     @Test
-    void can_findById() throws NoUserInStockException {
+    void can_find_By_Id() throws NoUserInStockException {
         //given
         User user = new User();
-        user.setId(1L);
         //when
         userService.save(user);
         Optional<User> result = userService.findById(user.getId());
@@ -46,7 +45,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    void can_findByUsername() {
+    void can_find_By_Username() {
         //given
         User user = new User();
         user.setUsername("john");
@@ -60,7 +59,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    void can_deleteById() {
+    void can_delete_By_Id() {
         //given
         User user = new User();
 
