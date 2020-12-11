@@ -16,9 +16,11 @@ public class Order {
     @Column(name = "orderId")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "order_status", nullable = false)
     private StatusOrder statusOrder;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "delivery_option", nullable = false)
     private Delivery delivery;
 

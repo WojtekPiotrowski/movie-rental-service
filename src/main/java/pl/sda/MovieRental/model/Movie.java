@@ -23,6 +23,8 @@ public class Movie {
     
     private String title;
     private LocalDate releaseDate;
+
+    @Enumerated(EnumType.STRING)
     private Genre genre;
     private String description;
     private int numberOfRatings;
