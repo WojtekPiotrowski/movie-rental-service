@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -27,6 +28,9 @@ public class Order {
     @OneToMany
     @JoinColumn(name = "copyMovie_id")
     private List<CopyMovie> copyMovies;
+
+//    @JoinColumn(name = "create_date")
+//    private LocalDateTime createDate;
 
     @ManyToOne
     @JoinTable(name = "user_id")
