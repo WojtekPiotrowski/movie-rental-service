@@ -6,6 +6,7 @@ import pl.sda.MovieRental.exception.MovieAlreadyExistsException;
 import pl.sda.MovieRental.exception.MovieDoesNotExistsException;
 import pl.sda.MovieRental.exception.NoMovieInStockException;
 import pl.sda.MovieRental.model.CopyMovie;
+import pl.sda.MovieRental.model.Genre;
 import pl.sda.MovieRental.model.Movie;
 import pl.sda.MovieRental.repository.MovieRepository;
 import pl.sda.MovieRental.service.MovieService;
@@ -45,6 +46,11 @@ public class MovieServiceImpl implements MovieService {
     public Optional<Movie> findByTitle(String title) {
             return movieRepository.findByTitle(title);
     }
+
+   /* @Override
+    public Optional<Movie> findByGenres(List<Genre> genreList) {
+        return movieRepository.findByGenresIn(genreList);
+    }*/
 
 
     @Override
