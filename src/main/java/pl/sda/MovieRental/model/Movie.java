@@ -31,6 +31,13 @@ public class Movie {
     private double averageRating;
     private BigDecimal price;
 
-    @OneToMany (mappedBy = "movie")
+    @OneToMany (mappedBy = "movie", fetch = FetchType.EAGER)
     private List<CopyMovie> copies;
+
+     @Override
+    public int hashCode() {
+        return title.getClass().hashCode();
+    }
+
+
 }
