@@ -29,6 +29,14 @@ public class Movie {
     private double averageRating;
     private BigDecimal price;
 
+
     @OneToMany
     private List<CopyMovie> copies;
+
+     @Override
+    public int hashCode() {
+        return title.getClass().hashCode();
+    }
+
+
 }

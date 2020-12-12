@@ -4,6 +4,7 @@ package pl.sda.MovieRental.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.usertype.UserType;
 
 import javax.persistence.*;
 import java.util.List;
@@ -44,4 +45,9 @@ public class User {
     public int hashCode() {
         return Objects.hash(username);
     }
+
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "user_type")
+//    private UserTypeEnum userType;
+
 }
