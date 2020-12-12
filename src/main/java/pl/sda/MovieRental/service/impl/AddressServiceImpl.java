@@ -34,8 +34,9 @@ private final AddressRepository addressRepository;
     }
 
     @Override
-    public List<Address> getAll() {
-        return addressRepository.findAll();
+    public List<Address> findAll() { return addressRepository.findAll();
+
+
     }
 }
 
