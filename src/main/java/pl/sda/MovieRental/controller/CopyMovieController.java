@@ -72,8 +72,6 @@ public class CopyMovieController {
        if(copyMovieService.findById(id).isPresent()) {
            copyMovie.setId(id);
            copyMovieService.save(copyMovie);
-           log.info(String.format("Copy of movie %s with id %s has been updated",
-                   copyMovie.getMovie().getTitle(), copyMovie.getId()));
 
            return ResponseEntity
                    .noContent()

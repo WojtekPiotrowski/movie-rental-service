@@ -1,10 +1,8 @@
 package pl.sda.MovieRental.model;
 
-import com.sun.xml.bind.v2.TODO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.sda.MovieRental.exception.NoMovieInStockException;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -31,7 +29,8 @@ public class Movie {
     private double averageRating;
     private BigDecimal price;
 
-    @OneToMany (mappedBy = "movie", fetch = FetchType.EAGER)
+
+    @OneToMany
     private List<CopyMovie> copies;
 
      @Override

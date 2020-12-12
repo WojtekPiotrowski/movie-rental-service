@@ -2,18 +2,18 @@ package pl.sda.MovieRental.service;
 
 import pl.sda.MovieRental.exception.MovieAlreadyInCartException;
 import pl.sda.MovieRental.exception.NoMovieInStockException;
-import pl.sda.MovieRental.model.CopyMovie;
+import pl.sda.MovieRental.model.Movie;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 public interface CartService {
 
-    void addMovie(CopyMovie copyMovie) throws MovieAlreadyInCartException;
+    void addMovie(Movie movie) throws MovieAlreadyInCartException;
 
-    void removeMovie(CopyMovie copyMovie);
+    void removeMovie(Movie movie);
 
-    List<CopyMovie> getMoviesInCart();
+    List<Movie> getMoviesInCart();
 
     void checkout() throws NoMovieInStockException;
 

@@ -8,6 +8,7 @@ import pl.sda.MovieRental.service.UserService;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -28,4 +29,16 @@ public class UserServiceImplTest {
         assertEquals(result, user);
     }
 
+    @Test
+    void can_delete_by_id() {
+        //given
+        User user = new User();
+
+        //when
+        Long userId = userService.save(user).getId();
+        userService.deleteById(userId);
+
+        //then
+        assertThat(userService.findById(userId)).isEmpty();
+    }
 }

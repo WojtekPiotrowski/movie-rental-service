@@ -7,10 +7,14 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
+import pl.sda.MovieRental.Utils.OrderHandler;
 import pl.sda.MovieRental.exception.MovieAlreadyInCartException;
 import pl.sda.MovieRental.exception.NoMovieInStockException;
 import pl.sda.MovieRental.model.CopyMovie;
+import pl.sda.MovieRental.model.Movie;
+import pl.sda.MovieRental.model.Order;
 import pl.sda.MovieRental.service.CartService;
+import pl.sda.MovieRental.service.CopyMovieService;
 import pl.sda.MovieRental.service.MovieService;
 
 import java.math.BigDecimal;
@@ -24,39 +28,43 @@ import java.util.List;
 public class CartServiceImpl implements CartService {
 
     private final MovieService movieService;
+    private final CopyMovieService copyMovieService;
+    private final OrderHandler orderHandler;
 
-    private List<CopyMovie> movies = new ArrayList<>();
+    private List<Movie> movies = new ArrayList<>();
 
     @Autowired
-    public CartServiceImpl(MovieService movieService) {
+    public CartServiceImpl(MovieService movieService, CopyMovieService copyMovieService, OrderHandler orderHandler) {
         this.movieService = movieService;
+        this.copyMovieService = copyMovieService;
+        this.orderHandler = orderHandler;
     }
 
     /**
      * If CopyMovie is already in the list, throw MovieAlreadyInCartException.
      * If CopyMovie is not in the list, add it
      *
-     * @param copyMovie
+     * @param movie
      * @throws MovieAlreadyInCartException
      */
     @Override
-    public void addMovie(CopyMovie copyMovie) throws MovieAlreadyInCartException {
-        if (movies.contains(copyMovie)){
-            throw new MovieAlreadyInCartException(copyMovie.getMovie());
+    public void addMovie(Movie movie) throws MovieAlreadyInCartException {
+        if (movies.contains(movie)){
+            throw new MovieAlreadyInCartException(movie);
         } else {
-            movies.add(copyMovie);
+            movies.add(movie);
         }
     }
 
     /**
      * If CopyMovie is in the list, remove it.
      *
-     * @param copyMovie
+     * @param movie
      */
     @Override
-    public void removeMovie(CopyMovie copyMovie)  {
-        if (movies.contains(copyMovie)){
-            movies.remove(copyMovie);
+    public void removeMovie(Movie movie)  {
+        if (movies.contains(movie)){
+            movies.remove(movie);
         }
     }
 
@@ -64,7 +72,7 @@ public class CartServiceImpl implements CartService {
      * @return unmodifiable list of movie copies
      */
     @Override
-    public List<CopyMovie> getMoviesInCart() {
+    public List<Movie> getMoviesInCart() {
         return Collections.unmodifiableList(movies);
     }
 
@@ -75,25 +83,26 @@ public class CartServiceImpl implements CartService {
      */
     @Override
     public void checkout() throws NoMovieInStockException {
-        CopyMovie copyMovie;
-        for (CopyMovie entry : movies) {
-            if (!entry.isAvailable()){
-                try {
-                    movies.set(movies.indexOf(entry), movieService.getCopy(entry.getMovie()));
-                } catch (NoMovieInStockException e) {
-                    throw e;
-                }}
-            entry.setAvailable(false);
+        List<CopyMovie> checkoutList = new ArrayList<>();
+        for (Movie entry : movies) {
+            try {
+                CopyMovie copyMovie = movieService.getCopy(entry);
+                checkoutList.add(copyMovie);
+                copyMovie.setAvailable(false);
+            } catch (NoMovieInStockException e) {
+                throw e;
+            }
         }
-        //copyMovieRepository.saveAll(movies);
-        //copyMovieRepository.flush();
+        Order order = orderHandler.save(checkoutList);
+        copyMovieService.saveAll(checkoutList);
+        copyMovieService.flush();
         movies.clear();
     }
 
     @Override
     public BigDecimal getTotal() {
         return movies.stream()
-                .map(entry -> entry.getMovie().getPrice())
+                .map(entry -> entry.getPrice())
                 .reduce(BigDecimal::add)
                 .orElse(BigDecimal.ZERO);
     }
