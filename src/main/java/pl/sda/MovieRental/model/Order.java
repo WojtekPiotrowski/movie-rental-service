@@ -13,7 +13,7 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "orderId")
+    @Column(name = "order_Id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -25,11 +25,7 @@ public class Order {
     private Delivery delivery;
 
     @OneToMany
-    @JoinColumn(name = "copyMovie_id")
+    @Column(name = "copy_movie_list")
     private List<CopyMovie> copyMovies;
-
-    @ManyToOne
-    @JoinTable(name = "user_id")
-    private User user;
 }
 

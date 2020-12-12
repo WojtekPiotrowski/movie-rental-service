@@ -25,10 +25,11 @@ public class User {
 
     private String email;
 
-    @OneToMany (mappedBy = "user")
+    @OneToMany
+    @Column(name = "order_list")
     private List<Order> orders;
 
-    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Address address;
 
     @Override
@@ -36,11 +37,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id.equals(user.id);
+        return username.equals(user.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(username);
     }
 }

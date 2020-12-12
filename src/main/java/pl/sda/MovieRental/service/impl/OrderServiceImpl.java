@@ -18,12 +18,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findAllOrdersByUserId(Long userId) {
-        return orderRepository.findAllOrdersByUserId(userId);
+    public Optional<Order> findById(Long orderId) {
+        return orderRepository.findById(orderId);
     }
 
     @Override
-    public Optional<Order> findById(Long orderId) {
-        return orderRepository.findById(orderId);
+    public Order save(Order order) {
+        return orderRepository.save(order);
     }
 }

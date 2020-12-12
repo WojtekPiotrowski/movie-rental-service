@@ -47,5 +47,15 @@ public class CopyMovieServiceImpl implements CopyMovieService {
         copyMovieRepository.save(copyMovie);
     }
 
+    @Override
+    public void saveAll(List<CopyMovie> movies) {
+        copyMovieRepository.saveAll(movies);
+    }
+
+    @Override
+    public void flush() {
+        copyMovieRepository.flush();
+    }
+
 
 }

@@ -19,4 +19,7 @@ public interface CopyMovieService {
 
     void save(CopyMovie copyMovie);
 
+    void saveAll(List<CopyMovie> movies);
+
+    void flush();
 }

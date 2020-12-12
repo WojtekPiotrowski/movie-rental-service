@@ -42,7 +42,7 @@ public class MovieServiceImpl implements MovieService {
 
 
     @Override
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         movieRepository.deleteById(id);
     }
 

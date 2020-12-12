@@ -55,7 +55,7 @@ public class MovieController {
     public ResponseEntity<?> deleteMovie(@PathVariable("id") Long id) {
 
         if (movieService.findById(id).isPresent()) {
-            movieService.delete(id);
+            movieService.deleteById(id);
             log.info("movie " + id + "has been deleted");
             return ResponseEntity
                     .ok()
