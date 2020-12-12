@@ -1,4 +1,5 @@
 package pl.sda.MovieRental.service;
+import pl.sda.MovieRental.exception.MovieAlreadyExistsException;
 import pl.sda.MovieRental.exception.NoMovieInStockException;
 import pl.sda.MovieRental.model.CopyMovie;
 import pl.sda.MovieRental.model.Movie;
@@ -9,20 +10,20 @@ import java.util.Optional;
 
 public interface MovieService {
 
-    Movie addMovie(Movie movie) throws Exception;
+    Movie addMovie(Movie movie) throws MovieAlreadyExistsException;
   
-    Optional<Movie> findById(Long id) throws Exception;
+    Optional<Movie> findById(Long id);
 
     List<Movie> findAll();
 
-    //void delete(Movie movie) throws Exception;
-    void deleteById(Long id) throws Exception;
+    Optional<Movie> findByTitle(String title);
+
+    void deleteById(Long id);
 
     void save (Movie movie);
 
     CopyMovie getCopy(Movie movie) throws NoMovieInStockException;
 
-    Optional<Movie> findByTitle(String title) throws Exception;
 
 
 }

@@ -32,13 +32,14 @@ public class MovieController {
     }
 
     @GetMapping("/movie-list/{id}")
-    public ResponseEntity<?> getMovieById(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<?> getMovieById(@PathVariable("id") Long id) {
         log.info("return movie by ID " + id);
         return movieService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    //TODO: (AGATA) getMovieByTitle method to prepare
 
     @PostMapping("/movie-list")
     public ResponseEntity<?> createMovie(@RequestBody final Movie movie) throws Exception {
@@ -51,7 +52,7 @@ public class MovieController {
 
 
     @DeleteMapping("/movie-list/{id}")
-    public ResponseEntity<?> deleteMovie(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<?> deleteMovie(@PathVariable("id") Long id) {
 
         if (movieService.findById(id).isPresent()) {
             movieService.deleteById(id);
@@ -66,7 +67,7 @@ public class MovieController {
     }
 
     @PutMapping("/movie-list/{id}")
-    public ResponseEntity<?> updateMovie(@PathVariable("id") Long id, @RequestBody final Movie movie) throws Exception {
+    public ResponseEntity<?> updateMovie(@PathVariable("id") Long id, @RequestBody final Movie movie) {
 
        if( movieService.findById(id).isPresent()) {
            movie.setId(id);
