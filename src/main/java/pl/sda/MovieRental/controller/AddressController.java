@@ -24,7 +24,7 @@ public class AddressController {
     public ResponseEntity<List<Address>> readAllAddress() {
         log.info("Return all address list");
         return ResponseEntity
-                .ok(addressService.getAll());
+                .ok(addressService.findAll());
     }
 
     @ResponseStatus(HttpStatus.CREATED)
