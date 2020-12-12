@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:remove="all">Potwierdzenie złożenia zamówienia</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+        h1 {font-size: 20px; color: #4e884e !important; font-family: "Times New Roman", "Times New Roman", "Lucida Sans Unicode", sans-serif; line-height: 1.5;}
+        h3 {font-size: 12px; color: #34a034 !important; font-family: "Times New Roman", "Times New Roman", "Lucida Sans Unicode", sans-serif;}
+        p {font-size: 16px; color: #ffffff; font-family: "Times New Roman", "Times New Roman", sans-serif; line-height: 1.5;}
+        table { border: 1px solid #259b0a;}
+        a {color: #062b67; text-decoration: none; font-weight: bold;}
+    </style>
+</head>
+<body>
+<table width="100%" cellpadding="0" cellspacing="0" bgcolor="4e884e">
+    <tr>
+        <td height="50" align="center"><p th:text="${header}">header</p></td>
+    </tr>
+    <tr bgcolor="ffffff">
+        <td height="100" align="center"><h1 th:text="${title}">title</h1></td>
+    </tr>
+    <tr bgcolor="ffffff">
+        <td height="100" align="center"><h3 th:text="${description}">description</h3></td>
+    </tr>
+    <tr>
+        <td height="50" align="center"><p>Zapraszamy ponownie: <a href="http://localhost:8080/">Najlepsza wypożyczalnia w mieście</a></p></td>
+    </tr>
+</table>
+</body>
+</html>

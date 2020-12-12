@@ -40,6 +40,7 @@ public class MovieController {
     }
 
 
+//    @CrossOrigin(origins = "http://localhost:3000") //it's necessary if we want to add front
     @PostMapping("/movie-list")
     public ResponseEntity<?> createMovie(@RequestBody final Movie movie){
         log.info("New movie has been created");
