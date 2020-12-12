@@ -20,11 +20,11 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping("/user/{userId}/orders")
+    /*@GetMapping("/user/{userId}/orders")
     ResponseEntity<List<Order>> getAllOrders (@PathVariable("userId") Long userId){
         log.info("reading all orders for given user");
         return ResponseEntity.ok(orderService.findAllOrdersByUserId(userId));
-    }
+    }*/
 
     @GetMapping("/orders/{orderId}")
     ResponseEntity<?> getOrderById (@PathVariable("orderId") Long orderId) {

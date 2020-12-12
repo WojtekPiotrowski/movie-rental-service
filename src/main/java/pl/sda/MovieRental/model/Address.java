@@ -23,7 +23,8 @@ public class Address {
     private String zipCode;
     private int houseNumber;
     private int streetNumber;
-    @OneToOne
+  
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
     private User user;
 
     @Override
@@ -37,9 +38,5 @@ public class Address {
     @Override
     public int hashCode() {
         return Objects.hash(user);
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

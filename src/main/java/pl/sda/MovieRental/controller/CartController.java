@@ -26,31 +26,31 @@ public class CartController {
     }
 
     @GetMapping("/cart")
-    ResponseEntity<List<CopyMovie>> cartContent(){
+    ResponseEntity<List<Movie>> cartContent(){
         log.info("reading cart contents");
         return ResponseEntity.ok(cartService.getMoviesInCart());
     }
 
     @GetMapping("/cart/addMovie/{id}")
-    ResponseEntity<List<CopyMovie>> addMovieToCart(@PathVariable("id") Long id) throws NoMovieInStockException, MovieAlreadyInCartException {
+    ResponseEntity<List<Movie>> addMovieToCart(@PathVariable("id") Long id) throws NoMovieInStockException, MovieAlreadyInCartException {
         log.info("adding movie to cart");
         Movie movie = new Movie();
         movieService.findById(id).ifPresent(addMovie -> movie.setId(addMovie.getId()));
-        cartService.addMovie(movieService.getCopy(movie));
+        cartService.addMovie(movie);
         return cartContent();
     }
 
     @GetMapping("/cart/removeMovie/{id}")
-    ResponseEntity<List<CopyMovie>> removeMovieFromCart(@PathVariable("id") Long id) throws NoMovieInStockException {
+    ResponseEntity<List<Movie>> removeMovieFromCart(@PathVariable("id") Long id) throws NoMovieInStockException {
         log.info("removing movie from cart");
         Movie movie = new Movie();
         movieService.findById(id).ifPresent(removeMovie -> movie.setId(removeMovie.getId()));
-        cartService.removeMovie(movieService.getCopy(movie));
+        cartService.removeMovie(movie);
         return cartContent();
     }
 
     @GetMapping("/cart/checkout")
-    ResponseEntity<List<CopyMovie>> checkout() throws NoMovieInStockException {
+    ResponseEntity<List<Movie>> checkout() throws NoMovieInStockException {
         cartService.checkout();
         return cartContent();
     }

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -13,21 +14,22 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "orderId")
+    @Column(name = "order_Id")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "order_status", nullable = false)
     private StatusOrder statusOrder;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "delivery_option", nullable = false)
     private Delivery delivery;
 
     @OneToMany
-    @JoinColumn(name = "copyMovie_id")
+    @Column(name = "copy_movie_list")
     private List<CopyMovie> copyMovies;
 
-    @ManyToOne
-    @JoinTable(name = "user_id")
-    private User user;
+//    @JoinColumn(name = "create_date")
+//    private LocalDateTime createDate;
 }
 

@@ -12,6 +12,7 @@ import pl.sda.MovieRental.service.CartService;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -27,12 +28,10 @@ class CartServiceImplTest {
         //given
         Movie movie = new Movie();
         movie.setTitle("Avatar");
-        CopyMovie copyMovie = new CopyMovie();
-        copyMovie.setMovie(movie);
 
         //when
-        cartService.addMovie(copyMovie);
-        Movie resultMovie = cartService.getMoviesInCart().get(0).getMovie();
+        cartService.addMovie(movie);
+        Movie resultMovie = cartService.getMoviesInCart().get(0);
 
         //then
         assertEquals(movie, resultMovie);
@@ -42,14 +41,11 @@ class CartServiceImplTest {
         //given
         Movie movie = new Movie();
         movie.setTitle("Avatar");
-        CopyMovie copyMovie = new CopyMovie();
-        copyMovie.setMovie(movie);
-
         //when
-        cartService.addMovie(copyMovie);
+        cartService.addMovie(movie);
 
         //then;
-        assertThatThrownBy(() -> cartService.addMovie(copyMovie))
+        assertThatThrownBy(() -> cartService.addMovie(movie))
                 .isInstanceOf(MovieAlreadyInCartException.class)
                 .hasMessageContaining("Avatar is already in cart");
     }
@@ -59,12 +55,10 @@ class CartServiceImplTest {
         //given
         Movie movie = new Movie();
         movie.setTitle("Avatar");
-        CopyMovie copyMovie = new CopyMovie();
-        copyMovie.setMovie(movie);
 
         //when
-        cartService.addMovie(copyMovie);
-        cartService.removeMovie(copyMovie);
+        cartService.addMovie(movie);
+        cartService.removeMovie(movie);
 
         //then
         assertThat(cartService.getMoviesInCart()).isEmpty();
@@ -75,14 +69,12 @@ class CartServiceImplTest {
         //given
         Movie movie = new Movie();
         movie.setTitle("Avatar");
-        CopyMovie copyMovie = new CopyMovie();
-        copyMovie.setMovie(movie);
 
         //when
-        cartService.addMovie(copyMovie);
+        cartService.addMovie(movie);
 
         //then
-        assertEquals(List.of(copyMovie), cartService.getMoviesInCart());
+        assertEquals(List.of(movie), cartService.getMoviesInCart());
     }
 
     @Test
@@ -96,11 +88,9 @@ class CartServiceImplTest {
         BigDecimal price = BigDecimal.valueOf(24.99);
         Movie movie = new Movie();
         movie.setPrice(price);
-        CopyMovie copyMovie = new CopyMovie();
-        copyMovie.setMovie(movie);
 
         //when
-        cartService.addMovie(copyMovie);
+        cartService.addMovie(movie);
         BigDecimal totalPrice = cartService.getTotal();
 
         //then

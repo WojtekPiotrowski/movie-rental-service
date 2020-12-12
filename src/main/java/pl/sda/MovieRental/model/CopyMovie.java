@@ -16,10 +16,7 @@ public class CopyMovie {
    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-   @ManyToOne
-   @JoinColumn(name = "movie_id")
-    private Movie movie;
-
+   @Column(name = "is_available", nullable = false)
     private boolean available;
 
     public boolean isAvailable() {
@@ -28,11 +25,6 @@ public class CopyMovie {
 
     public void setAvailable(boolean available) {
         this.available = available;
-    }
-
-    @Override
-    public int hashCode() {
-        return movie.getTitle().hashCode();
     }
 
     public Long getId() {

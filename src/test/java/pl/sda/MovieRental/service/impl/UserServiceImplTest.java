@@ -12,6 +12,7 @@ import pl.sda.MovieRental.service.UserService;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -31,7 +32,6 @@ public class UserServiceImplTest {
         //then
         assertEquals(result, user);
     }
-
 
     @Test
     void can_find_By_Id() throws NoUserInStockException {
