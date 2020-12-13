@@ -6,10 +6,13 @@ import pl.sda.MovieRental.exception.MovieAlreadyExistsException;
 import pl.sda.MovieRental.exception.MovieDoesNotExistsException;
 import pl.sda.MovieRental.exception.NoMovieInStockException;
 import pl.sda.MovieRental.model.CopyMovie;
+import pl.sda.MovieRental.model.Genre;
 import pl.sda.MovieRental.model.Movie;
 import pl.sda.MovieRental.repository.MovieRepository;
 import pl.sda.MovieRental.service.MovieService;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,8 +46,9 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Optional<Movie> findByTitle(String title) {
-            return movieRepository.findByTitle(title);
+        return movieRepository.findByTitle(title);
     }
+
 
 
     @Override
@@ -80,5 +84,26 @@ public class MovieServiceImpl implements MovieService {
         throw new NoMovieInStockException(movie);
     }
 
+    @Override
+    public List<Movie> findAllByGenre(Genre genre) {
+        return movieRepository.findAllByGenre(genre);
+    }
+
+/*       if (movies.isPresent()) {
+        return Optional.of(movies.get());
+    } else {
+        return Optional.empty();
+    }*/
+
+    @Override
+    public List<Movie> findByReleaseDateBetween(LocalDate releaseDate1, LocalDate releaseDate2) {
+        return movieRepository.findByReleaseDateBetween(releaseDate1, releaseDate2);
+    }
+
+
+
 
 }
+
+
+

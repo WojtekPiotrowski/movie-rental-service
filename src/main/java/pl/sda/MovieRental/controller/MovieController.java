@@ -31,6 +31,7 @@ public class MovieController {
                 .body(movieService.findAll());
     }
 
+
     @GetMapping("/movie-list/{id}")
     public ResponseEntity<?> getMovieById(@PathVariable("id") Long id) {
         log.info("return movie by ID " + id);
@@ -39,7 +40,6 @@ public class MovieController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    //TODO: (AGATA) getMovieByTitle method to prepare
 
     @CrossOrigin(origins = "http://localhost:3000") //it's necessary if we want to add front
     @PostMapping("/movie-list")

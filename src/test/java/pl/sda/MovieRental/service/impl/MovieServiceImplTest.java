@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class MovieServiceImplTest {
 
 
@@ -59,8 +59,8 @@ class MovieServiceImplTest {
 
         //given
         Movie movie = new Movie();
-        movie.setTitle("Star Wars");
-        movie.setCopies(copyMovieService.findAll());
+        movie.setTitle("Iron Man");
+
 
         //when
         movieService.addMovie(movie);
@@ -99,12 +99,12 @@ class MovieServiceImplTest {
 
         //given
         Movie movie = new Movie();
-        movie.setTitle("Star Wars");
+        movie.setTitle("Harry Potter");
         movie.setCopies(copyMovieService.findAll());
 
         //when
         Optional<Movie> movie1 = Optional.ofNullable(movieService.addMovie(movie));
-        Optional<Movie> wantedMovie = movieService.findByTitle("Star Wars");
+        Optional<Movie> wantedMovie = movieService.findByTitle("Harry Potter");
 
 
         //then
@@ -120,24 +120,25 @@ class MovieServiceImplTest {
 
         //give
         Movie input1 = new Movie();
-        input1.setTitle("Avatar");
+        input1.setTitle("The Lord of the Rings");
         input1.setCopies(List.of());
         Movie input2 = new Movie();
-        input2.setTitle("Star Wars");
+        input2.setTitle("Last Samurai");
         input2.setCopies(List.of());
 
-        Movie movie1 = movieService.addMovie(input1);
-
-        Movie movie2 = movieService.addMovie(input2);
 
 
-        List<Movie> movies = new ArrayList<>();
-        movies.add(movie1);
-        movies.add(movie2);
+
+        List<Movie> movies;
+        movies = movieService.findAll();
+        movies.add(input1);
+        movies.add(input2);
 
 
         //when
-       List<Movie> result = movieService.findAll();
+        Movie movie1 = movieService.addMovie(input1);
+        Movie movie2 = movieService.addMovie(input2);
+        List<Movie> result = movieService.findAll();
 
 
         //then
