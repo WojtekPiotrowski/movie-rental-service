@@ -46,6 +46,11 @@ public class User {
         return Objects.hash(username);
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+
 //    @Enumerated(EnumType.STRING)
 //    @Column(name = "user_type")
 //    private UserTypeEnum userType;

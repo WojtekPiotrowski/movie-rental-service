@@ -15,21 +15,21 @@ insert into movie (id, average_rating, description, genre, number_of_ratings, pr
 insert into movie (id, average_rating, description, genre, number_of_ratings, price, release_date, title) values ('600', '8.2', 'Stary mężczyzna czyta chorej na Alzheimera kobiecie pamiętnik opisujący historię miłości dziewczyny z zamożnego domu i ubogiego pracownika tartaku.', 'ROMANCE', '75', '0', '2004-01-01', 'Pamiętnik');
 
 
-insert into copy_movie (id, is_available) values ('101', 'true');
-insert into copy_movie (id, is_available) values ('102', 'true');
-insert into copy_movie (id, is_available) values ('103', 'true');
-insert into copy_movie (id, is_available) values ('201', 'false');
-insert into copy_movie (id, is_available) values ('202', 'true');
-insert into copy_movie (id, is_available) values ('203', 'false');
-insert into copy_movie (id, is_available) values ('204', 'false');
-insert into copy_movie (id, is_available) values ('205', 'false');
-insert into copy_movie (id, is_available) values ('301', 'true');
-insert into copy_movie (id, is_available) values ('405', 'true');
-insert into copy_movie (id, is_available) values ('402', 'false');
-insert into copy_movie (id, is_available) values ('403', 'false');
-insert into copy_movie (id, is_available) values ('404', 'false');
-insert into copy_movie (id, is_available) values ('501', 'true');
-insert into copy_movie (id, is_available) values ('502', 'true');
-insert into copy_movie (id, is_available) values ('601', 'true');
+insert into copy_movie (id, is_available, movie_id) values ('101', 'true', '100');
+insert into copy_movie (id, is_available, movie_id) values ('102', 'true', '100');
+insert into copy_movie (id, is_available, movie_id) values ('103', 'true', '100');
+insert into copy_movie (id, is_available, movie_id) values ('201', 'false', '200');
+insert into copy_movie (id, is_available, movie_id) values ('202', 'true', '200');
+insert into copy_movie (id, is_available, movie_id) values ('203', 'false', '200');
+insert into copy_movie (id, is_available, movie_id) values ('204', 'false', '200');
+insert into copy_movie (id, is_available, movie_id) values ('205', 'false', '200');
+insert into copy_movie (id, is_available, movie_id) values ('301', 'true', '300');
+insert into copy_movie (id, is_available, movie_id) values ('405', 'true', '400');
+insert into copy_movie (id, is_available, movie_id) values ('402', 'false', '400');
+insert into copy_movie (id, is_available, movie_id) values ('403', 'false', '400');
+insert into copy_movie (id, is_available, movie_id) values ('404', 'false', '400');
+insert into copy_movie (id, is_available, movie_id) values ('501', 'true', '500');
+insert into copy_movie (id, is_available, movie_id) values ('502', 'true', '500');
+insert into copy_movie (id, is_available, movie_id) values ('601', 'true', '600');
 
 

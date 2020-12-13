@@ -18,18 +18,23 @@ public class Order {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "order_status", nullable = false)
+    @Column(name = "order_status")
     private StatusOrder statusOrder;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "delivery_option", nullable = false)
+    @Column(name = "delivery_option")
     private Delivery delivery;
 
     @OneToMany
-    @Column(name = "copy_movie_list")
+    @JoinColumn(name = "order_id")
     private List<CopyMovie> copyMovies;
 
 //    @JoinColumn(name = "create_date")
 //    private LocalDateTime createDate;
+
+
+    public void setStatusOrder(StatusOrder statusOrder) {
+        this.statusOrder = statusOrder;
+    }
 }
 

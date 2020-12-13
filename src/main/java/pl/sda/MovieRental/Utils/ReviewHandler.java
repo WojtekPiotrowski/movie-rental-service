@@ -2,9 +2,11 @@ package pl.sda.MovieRental.Utils;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import pl.sda.MovieRental.model.Movie;
 import pl.sda.MovieRental.service.ReviewService;
 
+@Component
 public class ReviewHandler {
 
     private final ReviewService reviewService;

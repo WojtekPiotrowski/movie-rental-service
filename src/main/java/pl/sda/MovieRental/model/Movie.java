@@ -30,10 +30,19 @@ public class Movie {
     private BigDecimal price;
 
 
-    @OneToMany
+    @OneToMany (cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "movie_id")
     private List<CopyMovie> copies;
 
-     @Override
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return title.equals(movie.title);
+    }
+
+    @Override
     public int hashCode() {
         return title.getClass().hashCode();
     }

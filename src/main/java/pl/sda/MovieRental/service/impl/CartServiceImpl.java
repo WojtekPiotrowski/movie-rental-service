@@ -90,7 +90,7 @@ public class CartServiceImpl implements CartService {
                 checkoutList.add(copyMovie);
                 copyMovie.setAvailable(false);
             } catch (NoMovieInStockException e) {
-                throw e;
+                throw e; //TODO złapać listę wyjątków i wyrzucić na twarz po pętli
             }
         }
         Order order = orderHandler.save(checkoutList);
