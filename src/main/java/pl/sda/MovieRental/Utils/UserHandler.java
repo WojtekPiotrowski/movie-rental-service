@@ -1,5 +1,8 @@
 package pl.sda.MovieRental.Utils;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UserHandler {
 
     public static boolean isUserLoggedIn() {
