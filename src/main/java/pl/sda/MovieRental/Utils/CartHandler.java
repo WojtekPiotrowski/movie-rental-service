@@ -4,7 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import pl.sda.MovieRental.exception.NoMovieInStockException;
-import pl.sda.MovieRental.exception.NoMovieInStockExceptionCollection;
 import pl.sda.MovieRental.exception.NoMoviesInCartException;
 import pl.sda.MovieRental.model.Movie;
 import pl.sda.MovieRental.service.MovieService;
