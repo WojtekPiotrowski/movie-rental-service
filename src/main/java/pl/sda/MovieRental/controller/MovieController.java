@@ -41,8 +41,7 @@ public class MovieController {
     }
 
 
-
-    //@CrossOrigin(origins = "http://localhost:3000") //it's necessary if we want to add front
+    @CrossOrigin(origins = "http://localhost:3000") //it's necessary if we want to add front
     @PostMapping("/movie-list")
     public ResponseEntity<?> createMovie(@RequestBody final Movie movie) throws Exception {
         log.info("New movie has been created");
@@ -80,14 +79,7 @@ public class MovieController {
                    .build();
        } else {
        return ResponseEntity.notFound().build();
-    }
+       }
 
     }
-
-
-
-
-
-
-
 }

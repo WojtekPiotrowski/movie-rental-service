@@ -1,10 +1,14 @@
 package pl.sda.MovieRental.service.impl;
-import org.assertj.core.api.Assertions;
+
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import pl.sda.MovieRental.exception.NoUserInStockException;
 import pl.sda.MovieRental.model.User;
 import pl.sda.MovieRental.service.UserService;
+
 
 import java.util.Optional;
 
@@ -30,7 +34,32 @@ public class UserServiceImplTest {
     }
 
     @Test
-    void can_delete_by_id() {
+    void can_find_By_Id() throws NoUserInStockException {
+        //given
+        User user = new User();
+        //when
+        userService.save(user);
+        Optional<User> result = userService.findById(user.getId());
+        //then
+        assertEquals(result.hashCode(), user.hashCode());
+    }
+
+    @Test
+    void can_find_By_Username() {
+        //given
+        User user = new User();
+        user.setUsername("john");
+        //when
+        userService.save(user);
+        Optional<User> result = userService.findByUsername(user.getUsername());
+        //then
+        assertEquals(result.hashCode(), user.hashCode());
+
+
+    }
+
+    @Test
+    void can_delete_By_Id() {
         //given
         User user = new User();
 
