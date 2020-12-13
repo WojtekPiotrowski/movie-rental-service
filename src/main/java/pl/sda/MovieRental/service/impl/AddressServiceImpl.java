@@ -6,6 +6,7 @@ import pl.sda.MovieRental.repository.AddressRepository;
 import pl.sda.MovieRental.service.AddressService;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -20,9 +21,11 @@ private final AddressRepository addressRepository;
 
 
     @Override
-    public Address findById(Long id) {
-        return addressRepository.findById(id).orElse(null);
+    public Optional<Address> findById(Long id) {
+        addressRepository.findById(id).orElse(null);
+    return null;
     }
+
 
 
     @Override
@@ -31,8 +34,9 @@ private final AddressRepository addressRepository;
     }
 
     @Override
-    public List<Address> getAll() {
-        return addressRepository.findAll();
+    public List<Address> findAll() { return addressRepository.findAll();
+
+
     }
 }
 

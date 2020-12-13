@@ -69,12 +69,18 @@ public class MovieServiceImpl implements MovieService {
 
     }
 
-
-
     @Override
     public CopyMovie getCopy(Movie movie) throws NoMovieInStockException {
-        throw new NoMovieInStockException();
-        //TODO method to get an available copy of given movie, if there is no copy, throw exception
+        List<CopyMovie> copies = movie.getCopies();
+        Optional<CopyMovie> availableCopy = copies.stream()
+                                                .filter(CopyMovie::isAvailable)
+                                                .findFirst();
+
+        if (availableCopy.isPresent()){
+            return availableCopy.get();
+        }
+
+        throw new NoMovieInStockException(movie);
     }
 
 
