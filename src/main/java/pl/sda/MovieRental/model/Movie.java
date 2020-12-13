@@ -30,13 +30,13 @@ public class Movie {
     private BigDecimal price;
 
 
+
     @OneToMany
+    @JoinColumn(name = "movie_id")
     private List<CopyMovie> copies;
 
      @Override
     public int hashCode() {
         return title.getClass().hashCode();
     }
-
-
 }

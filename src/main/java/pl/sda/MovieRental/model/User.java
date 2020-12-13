@@ -27,6 +27,7 @@ public class User {
     private String email;
 
     @OneToMany
+//            (fetch = FetchType.EAGER)
     @Column(name = "order_list")
     private List<Order> orders;
 
@@ -46,8 +47,8 @@ public class User {
         return Objects.hash(username);
     }
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "user_type")
-//    private UserTypeEnum userType;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_type")
+    private UserTypeEnum userType;
 
 }

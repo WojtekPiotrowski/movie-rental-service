@@ -2,6 +2,7 @@ package pl.sda.MovieRental.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
 import pl.sda.MovieRental.exception.MovieAlreadyExistsException;
 import pl.sda.MovieRental.exception.MovieDoesNotExistsException;
 import pl.sda.MovieRental.exception.NoMovieInStockException;
@@ -13,7 +14,9 @@ import pl.sda.MovieRental.service.MovieService;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
+@Transactional
 public class MovieServiceImpl implements MovieService {
 
     private final MovieRepository movieRepository;

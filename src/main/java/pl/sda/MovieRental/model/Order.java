@@ -29,7 +29,7 @@ public class Order {
     @Column(name = "copy_movie_list")
     private List<CopyMovie> copyMovies;
 
-//    @JoinColumn(name = "create_date")
-//    private LocalDateTime createDate;
+    @JoinColumn(name = "create_date")
+    private LocalDateTime createDate;
 }
 
