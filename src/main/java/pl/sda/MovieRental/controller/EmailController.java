@@ -19,14 +19,24 @@ public class EmailController {
         this.templateEngine = templateEngine;
     }
 
-    @RequestMapping("/send-mail")
-    public String send() {
+    @RequestMapping("/send-order-confirmation")
+    public String sendOrderConfirmationMessage() {
         Context context = new Context();
         context.setVariable("header", "Potwierdzenie złożenia zamówienia");
-        context.setVariable("title", "Twoje zamówione filmy:");
+        context.setVariable("title", "Twoje zamówione filmy:" );
         context.setVariable("description", " ");
-        String body = templateEngine.process("template", context);
+        String body = templateEngine.process("template-confirmation", context);
         emailSender.sendEmail("javastartspring@gmail.com", "Potwierdzenie złożenia zamówienia", body);
+        return "index";
+    }
+
+    @RequestMapping("/send-order-delivered")
+    public String sendOrderDeliveredMessage() {
+        Context context = new Context();
+        context.setVariable("header", "Potwierdzenie wysłania zamówienia");
+        context.setVariable("title", "Twoje zamówienie zostało wysłane. Miłego oglądania" );
+        String body = templateEngine.process("template-order-delivered", context);
+        emailSender.sendEmail("javastartspring@gmail.com", "Twoje zamówienie zostało wysłane", body);
         return "index";
     }
 }

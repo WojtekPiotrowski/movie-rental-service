@@ -50,9 +50,7 @@ public class User {
         return orders;
     }
 
-
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "user_type")
-//    private UserTypeEnum userType;
-
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_type")
+    private UserTypeEnum userType;
 }
