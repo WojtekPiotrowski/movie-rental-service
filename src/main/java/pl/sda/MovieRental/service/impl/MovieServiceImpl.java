@@ -11,6 +11,8 @@ import pl.sda.MovieRental.model.Movie;
 import pl.sda.MovieRental.repository.MovieRepository;
 import pl.sda.MovieRental.service.MovieService;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,13 +46,9 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Optional<Movie> findByTitle(String title) {
-            return movieRepository.findByTitle(title);
+        return movieRepository.findByTitle(title);
     }
 
-   /* @Override
-    public Optional<Movie> findByGenres(List<Genre> genreList) {
-        return movieRepository.findByGenresIn(genreList);
-    }*/
 
 
     @Override
@@ -80,5 +78,26 @@ public class MovieServiceImpl implements MovieService {
         //TODO method to get an available copy of given movie, if there is no copy, throw exception
     }
 
+    @Override
+    public List<Movie> findAllByGenre(Genre genre) {
+        return movieRepository.findAllByGenre(genre);
+    }
+
+/*       if (movies.isPresent()) {
+        return Optional.of(movies.get());
+    } else {
+        return Optional.empty();
+    }*/
+
+    @Override
+    public List<Movie> findByReleaseDateBetween(LocalDate releaseDate1, LocalDate releaseDate2) {
+        return movieRepository.findByReleaseDateBetween(releaseDate1, releaseDate2);
+    }
+
+
+
 
 }
+
+
+
