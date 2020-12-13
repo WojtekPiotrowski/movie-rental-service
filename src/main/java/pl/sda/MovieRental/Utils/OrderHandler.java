@@ -3,10 +3,7 @@ package pl.sda.MovieRental.Utils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import pl.sda.MovieRental.model.CopyMovie;
-import pl.sda.MovieRental.model.Order;
-import pl.sda.MovieRental.model.StatusOrder;
-import pl.sda.MovieRental.model.User;
+import pl.sda.MovieRental.model.*;
 import pl.sda.MovieRental.service.OrderService;
 import pl.sda.MovieRental.service.UserService;
 
@@ -43,6 +40,17 @@ public class OrderHandler {
         Order orderUpdated = orderService.findById(orderId).get();
         orderUpdated.setId(orderId);
         orderUpdated.setStatusOrder(StatusOrder.valueOf(status));
+        orderService.save(orderUpdated);
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
+
+    public ResponseEntity<?> updateOrderDeliveryMethod(Long orderId, String delivery) {
+        Order orderUpdated = orderService.findById(orderId).get();
+        orderUpdated.setId(orderId);
+        orderUpdated.setDelivery(Delivery.valueOf(delivery));
+        orderService.save(orderUpdated);
         return ResponseEntity
                 .noContent()
                 .build();

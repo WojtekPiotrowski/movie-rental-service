@@ -30,6 +30,6 @@ insert into copy_movie (id, is_available, movie_id) values ('403', 'false', '400
 insert into copy_movie (id, is_available, movie_id) values ('404', 'false', '400');
 insert into copy_movie (id, is_available, movie_id) values ('501', 'true', '500');
 insert into copy_movie (id, is_available, movie_id) values ('502', 'true', '500');
-insert into copy_movie (id, is_available, movie_id) values ('601', 'true', '600');
+insert into copy_movie (id, is_available, movie_id) values ('601', 'false', '600');
 
 

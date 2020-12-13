@@ -27,7 +27,7 @@ public class User {
     private String email;
 
     @OneToMany
-    @Column(name = "order_list")
+    @JoinColumn(name = "user_id")
     private List<Order> orders;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

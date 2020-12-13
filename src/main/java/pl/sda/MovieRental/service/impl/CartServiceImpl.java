@@ -1,6 +1,7 @@
 package pl.sda.MovieRental.service.impl;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -10,6 +11,7 @@ import org.springframework.web.context.WebApplicationContext;
 import pl.sda.MovieRental.Utils.OrderHandler;
 import pl.sda.MovieRental.exception.MovieAlreadyInCartException;
 import pl.sda.MovieRental.exception.NoMovieInStockException;
+import pl.sda.MovieRental.exception.NoMoviesInCartException;
 import pl.sda.MovieRental.model.CopyMovie;
 import pl.sda.MovieRental.model.Movie;
 import pl.sda.MovieRental.model.Order;
@@ -21,10 +23,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
 
 @Service
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Transactional
+@Slf4j
 public class CartServiceImpl implements CartService {
 
     private final MovieService movieService;
@@ -80,9 +85,13 @@ public class CartServiceImpl implements CartService {
      * Checkout will rollback if some movies are not in stock.
      *
      * @throws NoMovieInStockException
+     * @return
      */
     @Override
-    public void checkout() throws NoMovieInStockException {
+    public Optional<List<NoMovieInStockException>> checkout() throws NoMoviesInCartException{
+        if (movies.isEmpty()) throw new NoMoviesInCartException();
+        List<Movie> moviesToRemoveFromCart = new ArrayList<>();
+        List<NoMovieInStockException> unavailableMovies = new ArrayList<>();
         List<CopyMovie> checkoutList = new ArrayList<>();
         for (Movie entry : movies) {
             try {
@@ -90,19 +99,27 @@ public class CartServiceImpl implements CartService {
                 checkoutList.add(copyMovie);
                 copyMovie.setAvailable(false);
             } catch (NoMovieInStockException e) {
-                throw e; //TODO złapać listę wyjątków i wyrzucić na twarz po pętli
+                moviesToRemoveFromCart.add(entry);
+                unavailableMovies.add(e);
             }
+        }
+        for (Movie movie : moviesToRemoveFromCart){
+            movies.remove(movie);
+        }
+        if (!unavailableMovies.isEmpty()) {
+            return Optional.of(unavailableMovies);
         }
         Order order = orderHandler.save(checkoutList);
         copyMovieService.saveAll(checkoutList);
         copyMovieService.flush();
         movies.clear();
+        return Optional.empty();
     }
 
     @Override
     public BigDecimal getTotal() {
         return movies.stream()
-                .map(entry -> entry.getPrice())
+                .map(Movie::getPrice)
                 .reduce(BigDecimal::add)
                 .orElse(BigDecimal.ZERO);
     }

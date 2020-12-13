@@ -1,11 +1,13 @@
 package pl.sda.MovieRental.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.MovieRental.Utils.CartHandler;
 import pl.sda.MovieRental.exception.MovieAlreadyInCartException;
 import pl.sda.MovieRental.exception.NoMovieInStockException;
+import pl.sda.MovieRental.exception.NoMoviesInCartException;
 import pl.sda.MovieRental.model.Movie;
 import pl.sda.MovieRental.service.CartService;
 import pl.sda.MovieRental.service.MovieService;
@@ -48,15 +50,14 @@ public class CartController {
     @GetMapping("/cart/removeMovie/{id}")
     ResponseEntity<List<Movie>> removeMovieFromCart(@PathVariable("id") Long id){
         log.info("removing movie from cart");
-        Movie movie = new Movie();
-        movieService.findById(id).ifPresent(removeMovie -> movie.setId(removeMovie.getId()));
-        cartService.removeMovie(movie);
+        Movie movie = cartHandler.findMovieById(id);
+        if (movie != null) cartService.removeMovie(movie);
         return cartContent();
     }
 
     @GetMapping("/cart/checkout")
-    ResponseEntity<List<Movie>> checkout() throws NoMovieInStockException {
-        cartService.checkout();
-        return cartContent();
+    ResponseEntity<?> checkout() {
+        ResponseEntity<?> response = cartHandler.checkoutErrorHandler();
+        return response;
     }
 }
