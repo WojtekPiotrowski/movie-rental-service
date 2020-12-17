@@ -14,30 +14,31 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-//    @Qualifier("userDetailsServiceImpl")
-//    @Autowired
-//    private UserDetailsService userDetailsService;
+
+    @Qualifier("userDetailsServiceImpl")
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/address/**","/review").hasRole("USER")
-                .antMatchers("/user/{userId}/orders","/order/{orderId}").hasAnyRole("USER","ADMIN")
-                .antMatchers(HttpMethod.PUT,"/order/{orderId}","/order/{orderId}").hasAnyRole("USER","ADMIN")
-                .antMatchers(HttpMethod.POST,"/movie-list","/copy-movie-list").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT,"/movie-list/{id}","/copy-movie-list/{id}").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE,"/movie-list/{id}","/copy-movie-list/{id}").hasRole("ADMIN")
-                .antMatchers( HttpMethod.GET,"/movie-list","/movie-list/{id}","/copy-movie-list","/copy-movie-list/{id}"
-                 ,"movie-list/genres/{genre}","movie-list/releaseDate","/movie-list/{id}/review","/review/{id}")
+                .antMatchers("/address/**", "/review").hasRole("USER")
+                .antMatchers("/user/{userId}/orders", "/order/{orderId}").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/order/{orderId}", "/order/{orderId}").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/movie-list", "/copy-movie-list").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/movie-list/{id}", "/copy-movie-list/{id}").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/movie-list/{id}", "/copy-movie-list/{id}").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/movie-list", "/movie-list/{id}", "/copy-movie-list", "/copy-movie-list/{id}"
+                        , "movie-list/genres/{genre}", "movie-list/releaseDate", "/movie-list/{id}/review", "/review/{id}")
                 .permitAll()
-                .antMatchers("cart/**","/login","/logout","/h2-console/**","/registration")
+                .antMatchers("cart/**", "/login", "/logout", "/h2-console/**", "/registration")
                 .permitAll()
                 .and()
                 .formLogin()
@@ -53,24 +54,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .headers().frameOptions().disable();
     }
-//
-//    @Bean
-//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//
-//        return new BCryptPasswordEncoder();
-//    }
-//    @Bean
-//    public AuthenticationProvider daoAuthenticationProvider(){
-//
-//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-//        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
-//        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-//        return daoAuthenticationProvider;
-//    }
-//
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
-//        auth.authenticationProvider(daoAuthenticationProvider());
-//    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationProvider daoAuthenticationProvider() {
+
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+        return daoAuthenticationProvider;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        auth.authenticationProvider(daoAuthenticationProvider());
+    }
 }
