@@ -4,8 +4,14 @@ insert into user (ID, EMAIL, PASSWORD, USER_TYPE, USERNAME, ADDRESS_ID) values (
 insert into address (id, city, first_name, house_number, last_name, street, street_number, zip_code, user_id) values ('22', 'Warszawa', 'Jan', '15', 'Kowalski', 'Woronicza', '15', '06-500', '1');
 insert into address (id, city, first_name, house_number, last_name, street, street_number, zip_code, user_id) values ('23', 'Wrocław', 'Krystyna', '5', 'Krystyńska', 'Pamiętna', '1', '02-450', '2');
 
-update user set address_id = '22' where id = '1';
-update user set address_id = '23' where id = '2';
+-- update user set address_id = '22' where id = '1';
+-- update user set address_id = '23' where id = '2';
+
+insert into role (id, name) values ('1', 'ADMIN');
+insert into role (id, name) values ('2', 'USER');
+
+insert into user_role (user_id, role_id) values(1,1);
+insert into user_role (user_id, role_id) values(2,2);
 
 insert into movie (id, average_rating, description, genre, number_of_ratings, price, release_date, title) values ('100', '8.76', 'Adaptacja opowiadania Stephena Kinga. Niesłusznie skazany na dożywocie bankier stara się przetrwać w brutalnym więziennym świecie', 'DRAMA', '12', '10', '1994-10-10', 'Skazani na Shawshank');
 insert into movie (id, average_rating, description, genre, number_of_ratings, price, release_date, title) values ('200', '8.7', 'Sparaliżowany milioner zatrudnia do opieki młodego chłopaka z przedmieścia który właśnie wyszedł z więzienia.', 'COMEDY', '14' , '15',  '2011-01-01', 'Nietykalni');
