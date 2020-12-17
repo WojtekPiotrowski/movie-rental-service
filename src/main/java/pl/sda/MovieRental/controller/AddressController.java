@@ -28,7 +28,7 @@ public class AddressController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/address")
+    @PostMapping("address/newAddress")
     public ResponseEntity<Address> createAddress(@RequestBody final Address address) {
         Address newAddress = addressService.save(address);
         log.info("New address has been created");
@@ -37,7 +37,7 @@ public class AddressController {
                 .body(newAddress);
     }
 
-    @PutMapping("/address-list/{id}")
+    @PutMapping("address/updateAddress/{id}")
     public ResponseEntity<?> updateAddress(@PathVariable("id") final Long id, @RequestBody final Address address) {
         if (addressService.findById(id) != null) {
             address.setId(id);
@@ -51,10 +51,9 @@ public class AddressController {
         return ResponseEntity
                 .notFound()
                 .build();
-
     }
 
-    @GetMapping("address/address-list/{id}")
+    @GetMapping("address/findById/{id}")
     public ResponseEntity<?> getAddressById(@PathVariable("id") Long id, Address address) {
         if (addressService.findById(id) != null) {
             log.info("Return address by Id " + id);

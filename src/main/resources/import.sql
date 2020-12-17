@@ -10,8 +10,8 @@ insert into address (id, city, first_name, house_number, last_name, street, stre
 insert into role (id, name) values ('1', 'ADMIN');
 insert into role (id, name) values ('2', 'USER');
 
-insert into user_role (user_id, role_id) values(1,1);
-insert into user_role (user_id, role_id) values(2,2);
+insert into user_role (user_id, role_id) values(1,2);
+insert into user_role (user_id, role_id) values(2,1);
 
 insert into movie (id, average_rating, description, genre, number_of_ratings, price, release_date, title) values ('100', '8.76', 'Adaptacja opowiadania Stephena Kinga. Niesłusznie skazany na dożywocie bankier stara się przetrwać w brutalnym więziennym świecie', 'DRAMA', '12', '10', '1994-10-10', 'Skazani na Shawshank');
 insert into movie (id, average_rating, description, genre, number_of_ratings, price, release_date, title) values ('200', '8.7', 'Sparaliżowany milioner zatrudnia do opieki młodego chłopaka z przedmieścia który właśnie wyszedł z więzienia.', 'COMEDY', '14' , '15',  '2011-01-01', 'Nietykalni');
