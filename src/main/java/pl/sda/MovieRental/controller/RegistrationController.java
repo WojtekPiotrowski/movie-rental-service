@@ -7,10 +7,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import pl.sda.MovieRental.model.Role;
 import pl.sda.MovieRental.model.User;
+import pl.sda.MovieRental.service.RoleService;
 import pl.sda.MovieRental.service.UserService;
 
+
 import java.net.URI;
+import java.util.Arrays;
 
 @Slf4j
 @RestController
@@ -18,11 +22,11 @@ public class RegistrationController {
 
 
     private final UserService userService;
+    private final RoleService roleService;
 
-
-    public RegistrationController(final UserService userService) {
+    public RegistrationController(final UserService userService, final RoleService roleService) {
         this.userService = userService;
-
+        this.roleService = roleService;
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -30,18 +34,19 @@ public class RegistrationController {
     public ResponseEntity<User> registerUserAccount(@RequestBody final User user) {
 
         if (userService.findByUsername(user.getUsername()).isEmpty()) {
-            User newUser = userService.save(user);
-            newUser.setAddress(user.getAddress());
-            log.info("Registered user");
+            Role role = roleService.findByName("USER");
+            user.setRoles(Arrays.asList(role));
+            user.setId(user.getId());
+            userService.save(user);
+            log.info("Registered user: " + user.getUsername());
+
             return ResponseEntity
-                    .created(URI.create("/" + newUser.getId()))
-                    .body(newUser);
+                    .created(URI.create("/" + user.getId()))
+                    .body(user);
         }
         return ResponseEntity
                 .status(HttpStatus.ALREADY_REPORTED)
                 .build();
     }
-
-
 }
 
