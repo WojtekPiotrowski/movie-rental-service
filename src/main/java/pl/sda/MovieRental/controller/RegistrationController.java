@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pl.sda.MovieRental.model.Role;
 import pl.sda.MovieRental.model.User;
+import pl.sda.MovieRental.service.AutoLoginService;
 import pl.sda.MovieRental.service.RoleService;
 import pl.sda.MovieRental.service.UserService;
 
@@ -23,10 +24,12 @@ public class RegistrationController {
 
     private final UserService userService;
     private final RoleService roleService;
+    private final AutoLoginService autoLoginService;
 
-    public RegistrationController(final UserService userService, final RoleService roleService) {
+    public RegistrationController(final UserService userService, final RoleService roleService, final AutoLoginService autoLoginService) {
         this.userService = userService;
         this.roleService = roleService;
+        this.autoLoginService = autoLoginService;
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -39,6 +42,7 @@ public class RegistrationController {
             user.setId(user.getId());
             userService.save(user);
             log.info("Registered user: " + user.getUsername());
+            autoLoginService.autoLogin(user.getUsername(),user.getPassword());
 
             return ResponseEntity
                     .created(URI.create("/" + user.getId()))
