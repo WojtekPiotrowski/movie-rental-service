@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface OrderRepository extends JpaRepository <Order, Long>{
-    Optional<Order> findById (Long orderId);
+public interface OrderRepository extends JpaRepository<Order, Long> {
+
+    Optional<Order> findById(Long orderId);
+
 }

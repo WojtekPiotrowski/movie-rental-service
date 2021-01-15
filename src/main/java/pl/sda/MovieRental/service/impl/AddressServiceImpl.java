@@ -8,25 +8,20 @@ import pl.sda.MovieRental.service.AddressService;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 public class AddressServiceImpl implements AddressService {
 
-private final AddressRepository addressRepository;
-
+    private final AddressRepository addressRepository;
 
     public AddressServiceImpl(final AddressRepository addressRepository) {
         this.addressRepository = addressRepository;
     }
 
-
     @Override
     public Optional<Address> findById(Long id) {
         addressRepository.findById(id).orElse(null);
-    return null;
+        return null;
     }
-
-
 
     @Override
     public Address save(Address address) {
@@ -34,9 +29,8 @@ private final AddressRepository addressRepository;
     }
 
     @Override
-    public List<Address> findAll() { return addressRepository.findAll();
-
-
+    public List<Address> findAll() {
+        return addressRepository.findAll();
     }
 }
 

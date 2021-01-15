@@ -17,7 +17,6 @@ import java.util.List;
 @RestController
 public class CopyMovieController {
 
-
     private final CopyMovieService copyMovieService;
 
     public CopyMovieController(final CopyMovieService copyMovieService) {
@@ -26,8 +25,8 @@ public class CopyMovieController {
 
 
     @PostMapping("/copy-movie-list")
-    public ResponseEntity<?> createCopyMovie(@RequestBody final CopyMovie copyMovie){
-        log.info("New copy movie has been created" );
+    public ResponseEntity<?> createCopyMovie(@RequestBody final CopyMovie copyMovie) {
+        log.info("New copy movie has been created");
         CopyMovie newCopyMovie = copyMovieService.addCopyMovie(copyMovie);
         return ResponseEntity
                 .created(URI.create("/" + newCopyMovie.getId()))
@@ -45,7 +44,7 @@ public class CopyMovieController {
 
 
     @GetMapping("/copy-movie-list/{id}")
-    public ResponseEntity<?> getCopyMovieById(@PathVariable("id") Long id){
+    public ResponseEntity<?> getCopyMovieById(@PathVariable("id") Long id) {
         log.info("Return copy movie by id " + id);
 
         return copyMovieService.findById(id)
@@ -69,18 +68,15 @@ public class CopyMovieController {
     @PutMapping("/copy-movie-list/{id}")
     public ResponseEntity<?> updateCopyMovie(@PathVariable("id") Long id, @RequestBody final CopyMovie copyMovie) {
 
-       if(copyMovieService.findById(id).isPresent()) {
-           copyMovie.setId(id);
-           copyMovieService.save(copyMovie);
+        if (copyMovieService.findById(id).isPresent()) {
+            copyMovie.setId(id);
+            copyMovieService.save(copyMovie);
 
-           return ResponseEntity
-                   .noContent()
-                   .build();
-       } else {
-           return ResponseEntity.notFound().build();
-       }
+            return ResponseEntity
+                    .noContent()
+                    .build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
-
-
-
 }

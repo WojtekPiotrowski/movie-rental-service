@@ -6,5 +6,4 @@ public enum StatusOrder {
     DELIVERED,
     IN_RETURN,
     COMPLETED
-
 }

@@ -9,6 +9,4 @@ public class MovieAlreadyExistsException extends Exception {
     public MovieAlreadyExistsException(String title){
         super(title + " This movie already exists in our collection!");
     }
-
-
 }

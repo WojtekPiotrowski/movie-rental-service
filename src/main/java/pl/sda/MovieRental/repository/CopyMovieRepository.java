@@ -10,10 +10,6 @@ import java.util.Optional;
 @Repository
 public interface CopyMovieRepository extends JpaRepository<CopyMovie, Long> {
 
-
-
-   Optional<CopyMovie> findById(Long id);
-
-
+    Optional<CopyMovie> findById(Long id);
 
 }

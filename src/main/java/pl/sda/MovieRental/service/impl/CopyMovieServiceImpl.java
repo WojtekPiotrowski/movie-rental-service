@@ -56,6 +56,4 @@ public class CopyMovieServiceImpl implements CopyMovieService {
     public void flush() {
         copyMovieRepository.flush();
     }
-
-
 }

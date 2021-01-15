@@ -14,23 +14,19 @@ import java.util.List;
 @RestController
 public class MovieController {
 
-
     private final MovieService movieService;
 
     public MovieController(final MovieService movieService) {
         this.movieService = movieService;
     }
 
-
-
     @GetMapping("/movie-list")
-    public ResponseEntity<List<Movie>> getAllMovies(){
+    public ResponseEntity<List<Movie>> getAllMovies() {
         log.info("Return all movie list");
         return ResponseEntity
                 .ok()
                 .body(movieService.findAll());
     }
-
 
     @GetMapping("/movie-list/{id}")
     public ResponseEntity<?> getMovieById(@PathVariable("id") Long id) {
@@ -39,7 +35,6 @@ public class MovieController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
 
     @CrossOrigin(origins = "http://localhost:3000") //it's necessary if we want to add front
     @PostMapping("/movie-list")
@@ -51,7 +46,6 @@ public class MovieController {
                 .body(newMovie);
     }
 
-
     @DeleteMapping("/movie-list/{id}")
     public ResponseEntity<?> deleteMovie(@PathVariable("id") Long id) {
 
@@ -62,24 +56,22 @@ public class MovieController {
                     .ok()
                     .body(movieService.findById(id));
         } else {
-           return ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build();
         }
-
     }
 
     @PutMapping("/movie-list/{id}")
     public ResponseEntity<?> updateMovie(@PathVariable("id") Long id, @RequestBody final Movie movie) {
 
-       if( movieService.findById(id).isPresent()) {
-           movie.setId(id);
-           movieService.save(movie);
-           log.info("movie " + movie + "has been updated");
-           return ResponseEntity
-                   .noContent()
-                   .build();
-       } else {
-       return ResponseEntity.notFound().build();
-       }
-
+        if (movieService.findById(id).isPresent()) {
+            movie.setId(id);
+            movieService.save(movie);
+            log.info("movie " + movie + "has been updated");
+            return ResponseEntity
+                    .noContent()
+                    .build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

@@ -23,5 +23,4 @@ public class Rental {
     private Long copyId;
     private LocalDate dateFrom;
     private LocalDate dateTo;
-
 }

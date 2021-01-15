@@ -46,6 +46,4 @@ public class Movie {
     public int hashCode() {
         return title.getClass().hashCode();
     }
-
-
 }

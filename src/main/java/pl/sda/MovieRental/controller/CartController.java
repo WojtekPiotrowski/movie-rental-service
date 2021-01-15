@@ -29,7 +29,7 @@ public class CartController {
     }
 
     @GetMapping("/cart")
-    ResponseEntity<List<Movie>> cartContent(){
+    ResponseEntity<List<Movie>> cartContent() {
         log.info("reading cart contents");
         return ResponseEntity.ok(cartService.getMoviesInCart());
     }
@@ -48,7 +48,7 @@ public class CartController {
     }
 
     @GetMapping("/cart/removeMovie/{id}")
-    ResponseEntity<List<Movie>> removeMovieFromCart(@PathVariable("id") Long id){
+    ResponseEntity<List<Movie>> removeMovieFromCart(@PathVariable("id") Long id) {
         log.info("removing movie from cart");
         Movie movie = cartHandler.findMovieById(id);
         if (movie != null) cartService.removeMovie(movie);

@@ -24,7 +24,7 @@ public class AutoLoginServiceImpl implements AutoLoginService {
                 (userDetails, password, userDetails.getAuthorities());
         if (token.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(token);
-            log.info("Logged user" + username);
+         log.info("Logged user " + username);
         }
     }
 }

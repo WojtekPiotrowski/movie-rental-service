@@ -44,6 +44,5 @@ public class UserServiceImpl implements UserService {
     public void deleteById(Long id) {
         log.info("Deleting user with all inner objects");
         userRepository.deleteById(id);
-
     }
 }

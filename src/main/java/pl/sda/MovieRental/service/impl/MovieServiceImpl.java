@@ -28,9 +28,6 @@ public class MovieServiceImpl implements MovieService {
         this.movieRepository = movieRepository;
     }
 
-
-
-
     @Override
     public Movie addMovie(Movie movie) throws MovieAlreadyExistsException {
 
@@ -40,7 +37,6 @@ public class MovieServiceImpl implements MovieService {
         }
         return movieRepository.save(movie);
     }
-
 
     @Override
     public Optional<Movie> findById(Long id) {
@@ -52,35 +48,29 @@ public class MovieServiceImpl implements MovieService {
         return movieRepository.findByTitle(title);
     }
 
-
-
     @Override
     public List<Movie> findAll() {
         return movieRepository.findAll();
     }
 
-
     @Override
     public void deleteById(Long id) {
         movieRepository.deleteById(id);
-
-}
-
+    }
 
     @Override
     public void save(Movie movie) {
-            movieRepository.save(movie);
-
+        movieRepository.save(movie);
     }
 
     @Override
     public CopyMovie getCopy(Movie movie) throws NoMovieInStockException {
         List<CopyMovie> copies = movie.getCopies();
         Optional<CopyMovie> availableCopy = copies.stream()
-                                                .filter(CopyMovie::isAvailable)
-                                                .findFirst();
+                .filter(CopyMovie::isAvailable)
+                .findFirst();
 
-        if (availableCopy.isPresent()){
+        if (availableCopy.isPresent()) {
             return availableCopy.get();
         }
 
@@ -102,10 +92,6 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> findByReleaseDateBetween(LocalDate releaseDate1, LocalDate releaseDate2) {
         return movieRepository.findByReleaseDateBetween(releaseDate1, releaseDate2);
     }
-
-
-
-
 }
 
 

@@ -40,22 +40,22 @@ public class CartHandler {
         List<String> errorMessages = new ArrayList<>();
         try {
             errors = cartService.checkout();
-            if(errors.isPresent()){
+            if (errors.isPresent()) {
                 errorMessages = errors
                         .get()
                         .stream()
                         .map(Throwable::getMessage)
                         .collect(Collectors.toList());
-                }
+            }
         } catch (NoMoviesInCartException e) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(e.getMessage());
         }
-        if (!errorMessages.isEmpty()){
+        if (!errorMessages.isEmpty()) {
             return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(errorMessages);
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(errorMessages);
         }
         return ResponseEntity
                 .ok(cartService.getMoviesInCart());

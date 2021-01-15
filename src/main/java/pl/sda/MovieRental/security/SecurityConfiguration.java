@@ -29,12 +29,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/address/**", "/review").hasRole("USER")
-                .antMatchers("/user/{userId}/orders", "/order/{orderId}").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.PUT, "/order/{orderId}", "/order/{orderId}").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.POST, "/movie-list", "/copy-movie-list").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/movie-list/{id}", "/copy-movie-list/{id}").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/movie-list/{id}", "/copy-movie-list/{id}").hasRole("ADMIN")
+                .antMatchers("/address/**", "/review").hasAuthority("ROLE_USER")
+                .antMatchers("/user/{userId}/orders", "/order/{orderId}").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/order/{orderId}", "/order/{orderId}").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/movie-list", "/copy-movie-list").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/movie-list/{id}", "/copy-movie-list/{id}").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/movie-list/{id}", "/copy-movie-list/{id}").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.GET, "/movie-list", "/movie-list/{id}", "/copy-movie-list", "/copy-movie-list/{id}"
                         , "movie-list/genres/{genre}", "movie-list/releaseDate", "/movie-list/{id}/review", "/review/{id}")
                 .permitAll()

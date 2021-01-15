@@ -13,14 +13,12 @@ import java.util.Optional;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
-    Optional<Movie> findById (Long id);
+    Optional<Movie> findById(Long id);
 
     Optional<Movie> findByTitle(String title);
 
     List<Movie> findAllByGenre(Genre genre);
 
     List<Movie> findByReleaseDateBetween(LocalDate releaseDate1, LocalDate releaseDate2);
-
-
 
 }

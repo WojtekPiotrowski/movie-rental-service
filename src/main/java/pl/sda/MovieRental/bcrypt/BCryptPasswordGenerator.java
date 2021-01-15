@@ -8,5 +8,4 @@ public class BCryptPasswordGenerator {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         System.out.println(bCryptPasswordEncoder.encode("pass"));
     }
-
 }

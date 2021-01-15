@@ -15,7 +15,7 @@ public class ReviewHandler {
         this.reviewService = reviewService;
     }
 
-    public static ResponseEntity<?> beginReviewAuthorisation(Long id){
+    public static ResponseEntity<?> beginReviewAuthorisation(Long id) {
         if (!UserHandler.isUserLoggedIn()) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
@@ -29,5 +29,4 @@ public class ReviewHandler {
         return ResponseEntity
                 .ok(id);
     }
-
 }

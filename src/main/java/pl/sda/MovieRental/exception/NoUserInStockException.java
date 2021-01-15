@@ -5,9 +5,7 @@ import pl.sda.MovieRental.model.User;
 
 public class NoUserInStockException extends Exception {
 
-    //TODO
-
-    public static final String DEFAULT_MESSAGE = "No user in stock";
+      public static final String DEFAULT_MESSAGE = "No user in stock";
 
     public NoUserInStockException() {
         super(DEFAULT_MESSAGE);

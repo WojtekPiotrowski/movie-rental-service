@@ -10,6 +10,7 @@ public interface AddressService {
     Optional<Address> findById(Long id);
 
     Address save(Address address);
+
     List<Address> findAll();
 
 }

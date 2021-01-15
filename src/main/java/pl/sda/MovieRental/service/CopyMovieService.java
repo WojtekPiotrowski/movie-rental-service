@@ -13,7 +13,7 @@ public interface CopyMovieService {
 
     Optional<CopyMovie> findById(Long copyId);
 
-    List<CopyMovie> findAll ();
+    List<CopyMovie> findAll();
 
     void delete(Long copyId);
 

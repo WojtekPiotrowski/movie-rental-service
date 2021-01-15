@@ -25,50 +25,27 @@ public class MoviesFilterController {
         this.movieService = movieService;
     }
 
-
     @GetMapping("movie-list/genres/{genre}")
     public ResponseEntity<List<Movie>> getMoviesByGenres(@PathVariable("genre") Genre genre) {
 
         log.info("return movies by genre: " + genre);
-       return  ResponseEntity
-               .ok()
-               .body(movieService.findAllByGenre(genre));
-
-
+        return ResponseEntity
+                .ok()
+                .body(movieService.findAllByGenre(genre));
     }
 
     @GetMapping("movie-list/releaseDate")
     public ResponseEntity<List<Movie>> findByReleaseDateBetween(@RequestParam(value = "startDate") String startDate,
-                                                              @RequestParam(value = "endDate") String endDate) {
+                                                                @RequestParam(value = "endDate") String endDate) {
 
         log.info("return movies by release Date ");
         return ResponseEntity
                 .ok()
                 .body(movieService.findByReleaseDateBetween(LocalDate.parse(startDate), LocalDate.parse(endDate)));
-
-
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //TODO: (AGATA) getMovieByTitle method to prepare
-
-
-
-
 
    /* @GetMapping("/movie-list/genres/{genre}")
     public ResponseEntity<List<Movie>> getMoviesByGenres(@PathVariable("genres") List<Genre> genres) {
@@ -83,7 +60,6 @@ public class MoviesFilterController {
         }
     }*/
 
-
  /*   @GetMapping("/movie-list/{id}")
     public ResponseEntity<?> getMovieById(@PathVariable("id") Long id) {
         log.info("return movie by ID " + id);
@@ -91,6 +67,4 @@ public class MoviesFilterController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }*/
-
-
 }

@@ -49,7 +49,7 @@ public class RegistrationController {
                     .body(user);
         }
         return ResponseEntity
-                .status(HttpStatus.ALREADY_REPORTED)
+                .status(HttpStatus.IM_USED)
                 .build();
     }
 }
